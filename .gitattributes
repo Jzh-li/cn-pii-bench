@@ -1,0 +1,5 @@
+# 强制 LF，保证语料/jsonl/py 跨平台 diff 干净
+* text=auto eol=lf
+*.jsonl text
+*.py text
+*.md text
