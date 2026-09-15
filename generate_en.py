@@ -217,9 +217,16 @@ BUILDERS = {
 
 def generate(rnd):
     cases = []
+    seen: set[str] = set()
     for subset, builder in BUILDERS.items():
         for i in range(PER_SUBSET):
+            # 重试直到文本唯一（理由同 generate.py：重复只增权重、不增覆盖）。
             text, ents = builder(rnd)
+            for _ in range(1000):
+                if text not in seen:
+                    break
+                text, ents = builder(rnd)
+            seen.add(text)
             cases.append({
                 "id": "en-%s-%03d" % (subset, i + 1),
                 "subset": subset,
@@ -231,9 +238,14 @@ def generate(rnd):
 
 def self_check(cases):
     errors = 0
+    seen: dict[str, str] = {}
     for c in cases:
         t = c["text"]
         tb = t.encode("utf-8")
+        if t in seen:
+            errors += 1
+            print("  DUPLICATE %s == %s" % (c["id"], seen[t]), file=sys.stderr)
+        seen.setdefault(t, c["id"])
         for g in c["expect"]:
             seg = tb[g["start"]:g["end"]].decode("utf-8", "replace")
             if seg != g["value"]:

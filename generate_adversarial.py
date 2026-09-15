@@ -11,8 +11,22 @@
 ⚠️ 与合成语料并存，不是替代。本评估器跑出的是 **真对抗 F1**，
 用于 README "Honest Performance" 段落。
 
+## 两条约定（2026-09-15 收紧）
+
+**1. 不允许重复样本。** 同一句话出现两遍不增加覆盖、只增加评分权重。此前
+`for i in range(2)` 把若干无参构造器原样调用两次，直接产出 7 组重复（14 行 = 7 个
+独立文本），标题 F1 被这些模板放大。现在同一位置改成**真正的变体**（不同民族姓名 /
+不同复姓 / 不同地址 / 不同 IP…），行数与覆盖面都不减，重复归零。main() 的自检会把
+重复判为失败。
+
+**2. 已知弱点必须显式登记。** 「我们抓不到它，但它确实是 PII」的样本改用
+`expect_miss: [{type, value, reason}]`，不再写 `"expect": []` + note。
+空 expect 会让这类样本在 P/R/F1 里彻底隐形（不产生 FN，检出了反而算 FP），
+等于把缺口写进语料再从评分里删掉。改用 expect_miss 后，评估器不计 FP、单独出台账，
+并额外给出「把每条 expect_miss 都算 FN」的悲观口径 F1。
+
 用法：
-    python3 bench/generate_adversarial.py
+    python3 generate_adversarial.py
 """
 from __future__ import annotations
 
@@ -109,18 +123,29 @@ def case_phone_emoji(case_id: str, phone: str) -> dict:
 
 
 def case_phone_formatted(case_id: str, phone: str) -> dict:
-    """带 +86 前缀 + 横线分隔的格式变体（detector 当前预期漏报：未做规范化）"""
+    """带 +86 前缀 + 横线分隔的格式变体（detector 当前预期漏报：未做规范化）
+
+    用 expect_miss 显式登记为已知弱点，而不是留一个空的 expect —— 空 expect 会让
+    这条样本在 P/R/F1 里彻底隐形，读者看不到「这个格式抓不到」这件事。
+    """
     # 把 phone 切成 3-4-4：13800138000 → 138-0013-8000
     p1 = phone[:3]
     p2 = phone[3:7]
     p3 = phone[7:]
-    text = f"联系电话：+86-{p1}-{p2}-{p3}，仅工作时段接听。"
+    formatted = f"+86-{p1}-{p2}-{p3}"
+    text = f"联系电话：{formatted}，仅工作时段接听。"
     return {
         "id": case_id,
         "subset": "phone",
         "text": text,
         "expect": [],
-        "note": "known_weakness_unnormalized_phone_format",
+        "expect_miss": [
+            {
+                "type": "zh_phone",
+                "value": formatted,
+                "reason": "known_weakness_unnormalized_phone_format",
+            },
+        ],
     }
 
 
@@ -138,26 +163,23 @@ def case_phone_no_separator(case_id: str, phone: str) -> dict:
     }
 
 
-def case_person_ethnic(case_id: str) -> dict:
-    """少数民族姓名带间隔符「·」"""
-    text = "对接人买买提·阿凡提确认出席本次对接会。"
-    full = text
-    name = "买买提·阿凡提"
-    s, e = find_offsets(full, name)[0]
+def case_person_ethnic(case_id: str, name: str) -> dict:
+    """少数民族姓名带间隔符「·」（名字长度不同 → 两条独立样本）"""
+    text = f"对接人{name}确认出席本次对接会。"
+    s, e = find_offsets(text, name)[0]
     return {
         "id": case_id,
         "subset": "person_name",
-        "text": full,
+        "text": text,
         "expect": [
             {"type": "zh_person_name", "value": name, "start": s, "end": e},
         ],
     }
 
 
-def case_person_compound(case_id: str) -> dict:
+def case_person_compound(case_id: str, name: str) -> dict:
     """复姓（4 字符）真实常见"""
-    text = "本次合作由欧阳娜娜代表团队出面。"
-    name = "欧阳娜娜"
+    text = f"本次合作由{name}代表团队出面。"
     s, e = find_offsets(text, name)[0]
     return {
         "id": case_id,
@@ -183,10 +205,9 @@ def case_address_no_province(case_id: str, addr: str) -> dict:
     }
 
 
-def case_address_abbrev(case_id: str) -> dict:
+def case_address_abbrev(case_id: str, addr: str, tail: str) -> dict:
     """地址缩写（上海浦东 vs 上海市浦东新区）"""
-    text = "出差：上海浦东张江园区 软件园 12 号楼"
-    addr = "上海浦东张江园区"
+    text = f"出差：{addr} {tail}"
     s, e = find_offsets(text, addr)[0]
     return {
         "id": case_id,
@@ -199,14 +220,34 @@ def case_address_abbrev(case_id: str) -> dict:
 
 
 def case_id_card_masked(case_id: str) -> dict:
-    """身份证中部带星号遮蔽（当前预期漏报）"""
+    """身份证中部带星号遮蔽。
+
+    这里有**两类**语义，必须分开写：
+    - 掩码身份证本身当前抓不到 → 登记为 `expect_miss`（已知弱点）；
+    - 正文里的「张三」是**真 PII**，应当被检出 → 写进 `expect`。
+
+    早期版本对整条只写了 `expect: []` + note，等于同时声明「张三也不该被检出」，
+    于是检测器正确认出张三反而被记成 FP。这正是 `expect: []` 被滥用的另一种形态：
+    作者只想标注一个缺口，却顺带把正文里真正的 PII 也否掉了。
+    """
     text = "员工张三的身份证号是 110101********8531，请核对。"
+    name = "张三"
+    masked = "110101********8531"
+    s, e = find_offsets(text, name)[0]
     return {
         "id": case_id,
         "subset": "id_card_masked",
         "text": text,
-        "expect": [],
-        "note": "real_world_masked_expect_miss",
+        "expect": [
+            {"type": "zh_person_name", "value": name, "start": s, "end": e},
+        ],
+        "expect_miss": [
+            {
+                "type": "zh_id_card",
+                "value": masked,
+                "reason": "real_world_masked_id_card",
+            },
+        ],
     }
 
 
@@ -225,10 +266,9 @@ def case_email_chinese(case_id: str, local: str) -> dict:
     }
 
 
-def case_email_plus_alias(case_id: str) -> dict:
+def case_email_plus_alias(case_id: str, email: str) -> dict:
     """带 + 别名的邮箱"""
-    text = "Support: support+security@example.com （安全团队）"
-    email = "support+security@example.com"
+    text = f"Support: {email} （安全团队）"
     s, e = find_offsets(text, email)[0]
     return {
         "id": case_id,
@@ -240,10 +280,9 @@ def case_email_plus_alias(case_id: str) -> dict:
     }
 
 
-def case_ip_with_port(case_id: str) -> dict:
-    """IP:端口 格式"""
-    text = "测试服务器地址：10.0.0.1:8080，登录后进入调试模式。"
-    ip = "10.0.0.1"
+def case_ip_with_port(case_id: str, ip: str, port: int) -> dict:
+    """IP:端口 格式（IP 与端口都变体化，避免两条样本一模一样）"""
+    text = f"测试服务器地址：{ip}:{port}，登录后进入调试模式。"
     s, e = find_offsets(text, ip)[0]
     return {
         "id": case_id,
@@ -255,18 +294,18 @@ def case_ip_with_port(case_id: str) -> dict:
     }
 
 
-def case_mixed_realistic(case_id: str) -> dict:
+def case_mixed_realistic(case_id: str, phone: str, email: str) -> dict:
     """真实场景多类型混排：姓名 + 手机 + 地址 + 邮箱 一段话"""
     text = (
-        "客户资料：李雷，电话 13912345678，地址北京市海淀区中关村南大街 5 号，"
-        "邮箱 lilei@example.com。请尽快对接。"
+        f"客户资料：李雷，电话 {phone}，地址北京市海淀区中关村南大街 5 号，"
+        f"邮箱 {email}。请尽快对接。"
     )
     expects = []
     for val, typ in [
         ("李雷", "zh_person_name"),
-        ("13912345678", "zh_phone"),
+        (phone, "zh_phone"),
         ("北京市海淀区中关村南大街", "zh_address"),
-        ("lilei@example.com", "email"),
+        (email, "email"),
     ]:
         offsets = find_offsets(text, val)
         if offsets:
@@ -280,22 +319,22 @@ def case_mixed_realistic(case_id: str) -> dict:
     }
 
 
-def case_mixed_tool_call(case_id: str) -> dict:
+def case_mixed_tool_call(case_id: str, phone: str, email: str, name: str) -> dict:
     """模拟 tool_call 的 arguments 字段里嵌 PII"""
     text = json.dumps({
         "name": "send_email",
         "arguments": {
-            "to": "zhangsan@example.com",
+            "to": email,
             "subject": "会议通知",
-            "body": "请张伟于 13800138000 前到达会场。",
+            "body": f"请{name}于 {phone} 前到达会场。",
             "location": "北京市朝阳区国贸大厦",
         }
     }, ensure_ascii=False)
     expects = []
     for val, typ in [
-        ("zhangsan@example.com", "email"),
-        ("张伟", "zh_person_name"),
-        ("13800138000", "zh_phone"),
+        (email, "email"),
+        (name, "zh_person_name"),
+        (phone, "zh_phone"),
         ("北京市朝阳区国贸大厦", "zh_address"),
     ]:
         offsets = find_offsets(text, val)
@@ -311,6 +350,26 @@ def case_mixed_tool_call(case_id: str) -> dict:
 
 
 # ---- Builder ----------------------------------------------------------------
+
+# 变体池：每个池子至少 2 项。原实现把无参构造器在 `for i in range(2)` 里原样调两遍，
+# 直接产出重复样本；改成从池子里取不同项后，行数与覆盖面都不减、重复归零。
+ETHNIC_NAMES = ["买买提·阿凡提", "努尔买买提·吐尔逊"]
+COMPOUND_NAMES = ["欧阳娜娜", "上官婉儿"]
+ABBREV_ADDRS = [
+    ("上海浦东张江园区", "软件园 12 号楼"),
+    ("广州天河软件园", "12 号楼"),
+]
+PLUS_EMAILS = ["support+security@example.com", "billing+invoices@example.org"]
+IP_PORTS = [("10.0.0.1", 8080), ("192.168.1.100", 8443)]
+MIXED_REAL = [
+    ("13912345678", "lilei@example.com"),
+    ("13700137000", "hanmeimei@example.com"),
+]
+MIXED_TOOL = [
+    ("13800138000", "zhangsan@example.com", "张伟"),
+    ("15012345678", "lisi@example.org", "王芳"),
+]
+
 
 def build_cases() -> list[dict]:
     rng = random.Random(SEED)
@@ -328,29 +387,31 @@ def build_cases() -> list[dict]:
         builders_seq.append((case_phone_formatted, "phone_fmt", phone_pool[(i + 3) % len(phone_pool)]))
     for i in range(3):
         builders_seq.append((case_phone_no_separator, "phone_nosep", phone_pool[(i + 5) % len(phone_pool)]))
-    # person / address / email / ip / mixed / masked
+    # person / address / email / ip：每类两条**不同的**样本（不再是同一构造器调两遍）
     for i in range(2):
-        builders_seq.append((case_person_ethnic, "person_ethnic", None))
-        builders_seq.append((case_person_compound, "person_compound", None))
-        builders_seq.append((case_address_abbrev, "addr_abbrev", None))
-        builders_seq.append((case_email_plus_alias, "email_plus", None))
-        builders_seq.append((case_ip_with_port, "ip_port", None))
+        builders_seq.append((case_person_ethnic, "person_ethnic", ETHNIC_NAMES[i]))
+        builders_seq.append((case_person_compound, "person_compound", COMPOUND_NAMES[i]))
+        builders_seq.append((case_address_abbrev, "addr_abbrev", ABBREV_ADDRS[i]))
+        builders_seq.append((case_email_plus_alias, "email_plus", PLUS_EMAILS[i]))
+        builders_seq.append((case_ip_with_port, "ip_port", IP_PORTS[i]))
     builders_seq.append((case_address_no_province, "addr_noprov", addr_pool[2]))  # 深圳南山区
     builders_seq.append((case_address_no_province, "addr_noprov", addr_pool[3]))  # 成都市高新区
     builders_seq.append((case_email_chinese, "email_chinese", "lilei"))
     builders_seq.append((case_email_chinese, "email_chinese", "hanmeimei"))
-    builders_seq.append((case_mixed_realistic, "mixed_real", None))
-    builders_seq.append((case_mixed_realistic, "mixed_real", None))
-    builders_seq.append((case_mixed_tool_call, "mixed_tool", None))
-    builders_seq.append((case_mixed_tool_call, "mixed_tool", None))
+    builders_seq.append((case_mixed_realistic, "mixed_real", MIXED_REAL[0]))
+    builders_seq.append((case_mixed_realistic, "mixed_real", MIXED_REAL[1]))
+    builders_seq.append((case_mixed_tool_call, "mixed_tool", MIXED_TOOL[0]))
+    builders_seq.append((case_mixed_tool_call, "mixed_tool", MIXED_TOOL[1]))
     builders_seq.append((case_id_card_masked, "idcard_mask", None))
 
     for i, (builder, subset, arg) in enumerate(builders_seq):
         case_id = f"{subset}_adv-{i + 1:03d}"
-        if arg is not None:
-            case = builder(case_id, arg)
-        else:
+        if arg is None:
             case = builder(case_id)
+        elif isinstance(arg, tuple):
+            case = builder(case_id, *arg)
+        else:
+            case = builder(case_id, arg)
         if case.get("expect"):
             for ex in case["expect"]:
                 text_slice = case["text"].encode("utf-8")[ex["start"]:ex["end"]].decode("utf-8")
@@ -361,6 +422,33 @@ def build_cases() -> list[dict]:
     return cases
 
 
+def self_check(cases: list[dict]) -> int:
+    """结构自检：offset 一致、无重复样本、expect_miss 声明完整。返回错误数。"""
+    bad = 0
+    seen: dict[str, str] = {}
+    for c in cases:
+        text = c["text"]
+        if text in seen:
+            print(f"[FAIL] DUPLICATE {c['id']} == {seen[text]}")
+            bad += 1
+        seen.setdefault(text, c["id"])
+
+        for ex in c.get("expect", []):
+            got = text.encode("utf-8")[ex["start"]:ex["end"]].decode("utf-8")
+            if got != ex["value"]:
+                print(f"[FAIL] {c['id']} offset mismatch: expect={ex['value']!r} got={got!r}")
+                bad += 1
+
+        for m in c.get("expect_miss", []):
+            if not m.get("value") or m["value"] not in text:
+                print(f"[FAIL] {c['id']} expect_miss value {m.get('value')!r} 不在 text 中")
+                bad += 1
+            if not m.get("reason"):
+                print(f"[FAIL] {c['id']} expect_miss 缺少 reason")
+                bad += 1
+    return bad
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", default=str(DEFAULT_OUT))
@@ -368,28 +456,25 @@ def main():
     args = parser.parse_args()
 
     cases = build_cases()
+    bad = self_check(cases)
 
     if args.self_check:
-        # 内部一致性：每个 case 的 expect.value 必须等于 text[start:end]
-        bad = 0
-        for c in cases:
-            for ex in c.get("expect", []):
-                got = c["text"].encode("utf-8")[ex["start"]:ex["end"]].decode("utf-8")
-                if got != ex["value"]:
-                    print(f"[FAIL] {c['id']} offset mismatch")
-                    bad += 1
         if bad == 0:
-            print(f"[OK] {len(cases)} cases all offset-consistent")
+            print(f"[OK] {len(cases)} cases: offset-consistent, no duplicates")
         else:
-            print(f"[FAIL] {bad} cases have inconsistent offsets")
+            print(f"[FAIL] {bad} problems")
         return
+
+    if bad:
+        raise SystemExit(f"self-check failed with {bad} problems; refusing to write")
 
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with out_path.open("w", encoding="utf-8") as f:
         for c in cases:
             f.write(json.dumps(c, ensure_ascii=False) + "\n")
-    print(f"[OK] wrote {len(cases)} cases -> {out_path}")
+    n_miss = sum(len(c.get("expect_miss", [])) for c in cases)
+    print(f"[OK] wrote {len(cases)} cases ({n_miss} expect_miss) -> {out_path}")
 
 
 if __name__ == "__main__":

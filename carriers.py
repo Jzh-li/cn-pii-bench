@@ -18,7 +18,12 @@
 
   parity       flat 基线能脱掉的每条 PII，每种结构化载体都必须同样脱掉。
                「flat 抓到、载体漏了」= 一条 regression。目标：**0**。
-  round-trip   用 /v1/privacy/restore 还原后，每条 PII 必须无损回来。
+  round-trip   用 /v1/privacy/restore 还原后，**可逆命运**的每条 PII 必须无损回来。
+
+               注意「被脱敏」≠「可逆」：`zh_bank_card` 在 placeholder 策略下是
+               mask（保留后 4 位），按设计不可逆。评估器对每个实体类型实测一次
+               可逆性（probe_reversible），不可逆类型豁免往返断言并单独入台账——
+               不硬编码类型清单，也不静默丢弃。
 
 载体（CARRIERS）：
   flat               {"role":"user","content": text}
@@ -63,6 +68,11 @@ CARRIERS = ["flat", "multimodal", "tool_call", "tool_call_nested"]
 # tool_call 载体里用的函数名（仅形状占位，不参与评分）
 _FN_FLAT = "save_note"
 _FN_NESTED = "save_profile"
+
+# 绕开环境里的 http_proxy：评测目标是 127.0.0.1，走代理会被劫持/挂起
+# （urlopen 默认读 http_proxy；本地回环也不例外）。runner.py 与
+# bench_runner_adversarial.py 同样处理，三处口径保持一致。
+_NO_PROXY_OPENER = urllib.request.build_opener(urllib.request.ProxyHandler({}))
 
 
 # --------------------------------------------------------------------------
@@ -113,7 +123,7 @@ def _post(url: str, payload: dict, timeout: float, token: str = "") -> tuple[dic
     req = urllib.request.Request(url, data=data, headers=headers, method="POST")
     t0 = time.perf_counter()
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
+        with _NO_PROXY_OPENER.open(req, timeout=timeout) as resp:
             body = json.loads(resp.read().decode("utf-8"))
             return body, int((time.perf_counter() - t0) * 1000), ""
     except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, OSError) as e:
@@ -144,18 +154,77 @@ def gateway_restore(base: str, redacted: Any, request_id: str, timeout: float,
 # 评估主循环
 # --------------------------------------------------------------------------
 
-def eval_case(case_id: str, values: list[str], text: str,
+def probe_reversible(typ: str, value: str,
+                     redact: Callable[[list[dict]], tuple[Any, str, int, str]],
+                     restore: Callable[[Any, str], tuple[Any, int, str]],
+                     cache: dict[str, bool | None]) -> bool | None:
+    """向网关**实测**「该实体类型在当前策略下是否可逆」，结果按类型缓存。
+
+    为什么必须实测：`zh_bank_card` 在 `strategy=placeholder` 下走的是 **mask**
+    （`replacer.go` 的 `fateFor`：保留后 4 位、其余填 `*`），这是**按设计不可逆**——
+    掩码值本来就不该、也不可能被还原。
+
+    早期评估器把「值从载荷里消失」（`anonymized`）与「值可被还原」当成同一件事
+    （`rt = all(v in rflat for v in anon)`），于是任何含银行卡的样本都被判为往返失败：
+    全量 240 条里 144 条误报（30 条 bank_card + 6 条含银行卡的 adversarial，×4 载体），
+    而 `--limit 60` 的子集恰好只含 person_name/phone，所以一直没暴露。
+
+    这里不硬编码「哪些类型不可逆」（那会把网关策略实现细节抄进基准、必然漂移），
+    改为用**最小样本**探测一次：
+
+    - 值没被脱掉 → 返回 None（不是可逆性问题，照旧断言往返）
+    - 值被脱掉且能还原 → True（必须断言往返）
+    - 值被脱掉但还原不回来 → False（mask/redact，豁免往返断言）
+    - 探测本身失败 → None（**宁严勿松**：不豁免）
+
+    探测结果按类型缓存，一次运行只需 ~8 次额外请求。
+    """
+    if typ in cache:
+        return cache[typ]
+    sample = f"这是我的{value}，请记录。"
+    redacted, rid, _, err = redact([{"role": "user", "content": sample}])
+    if err or not rid:
+        cache[typ] = None
+        return None
+    if value in flatten(redacted):
+        cache[typ] = None          # 压根没脱掉，不属于可逆性范畴
+        return None
+    restored, _, rerr = restore(redacted, rid)
+    if rerr:
+        cache[typ] = None
+        return None
+    cache[typ] = value in flatten(restored)
+    return cache[typ]
+
+
+def eval_case(case_id: str, pairs: list[tuple[str, str]], text: str,
               redact: Callable[[list[dict]], tuple[Any, str, int, str]],
-              restore: Callable[[Any, str], tuple[Any, int, str]]) -> dict:
+              restore: Callable[[Any, str], tuple[Any, int, str]],
+              reversibility: dict[str, bool | None] | None = None) -> dict:
+    reversibility = {} if reversibility is None else reversibility
+    values = [v for _, v in pairs]
+
     carriers: dict[str, dict] = {}
     for carrier in CARRIERS:
         messages = wrap(case_id, text, carrier)
         redacted, rid, ms, err = redact(messages)
         if err:
             carriers[carrier] = {"error": err, "anonymized": [], "leaked": values,
-                                 "roundtrip_ok": None, "latency_ms": ms}
+                                 "roundtrip_ok": None, "latency_ms": ms,
+                                 "by_design_irreversible": []}
             continue
         anon, leaked = score_leaks(values, flatten(redacted))
+
+        # 只有「可逆类型」才断言往返；mask/redact 类型按设计不可逆，
+        # 单独记进 by_design_irreversible 台账（可见、不静默丢弃）。
+        for typ, val in pairs:
+            probe_reversible(typ, val, redact, restore, reversibility)
+        anon_set = set(anon)
+        by_design = [v for t, v in pairs
+                     if reversibility.get(t) is False and v in anon_set]
+        rt_values = [v for t, v in pairs
+                     if reversibility.get(t) is not False and v in anon_set]
+
         rt: bool | None = None
         if rid:
             restored, _, rerr = restore(redacted, rid)
@@ -163,10 +232,12 @@ def eval_case(case_id: str, values: list[str], text: str,
                 rt = False
             else:
                 rflat = flatten(restored)
-                rt = all(v in rflat for v in anon)
+                rt = all(v in rflat for v in rt_values)
         carriers[carrier] = {"anonymized": anon, "leaked": leaked,
                              "roundtrip_ok": rt, "latency_ms": ms,
-                             "request_id": rid}
+                             "request_id": rid,
+                             "by_design_irreversible": by_design,
+                             "roundtrip_checked_values": rt_values}
     return {"id": case_id, "carriers": carriers}
 
 
@@ -184,12 +255,17 @@ def summarize(results: list[dict]) -> dict:
                 regressions.append([r["id"], pii])
         rt = [r["carriers"][carrier]["roundtrip_ok"] for r in results]
         rt_checked = [x for x in rt if x is not None]
+        by_design: list[list[str]] = []
+        for r in results:
+            for v in r["carriers"][carrier].get("by_design_irreversible", []):
+                by_design.append([r["id"], v])
         summary[carrier] = {
             "anonymized": anonymized,
             "leaked": leaked,
             "regressions": regressions,
             "roundtrip_checked": len(rt_checked),
             "roundtrip_failures": sum(1 for x in rt_checked if x is False),
+            "by_design_irreversible": by_design,
         }
     summary["_flat_baseline"] = {"anonymized": flat_total}
     return summary
@@ -237,6 +313,33 @@ def render_report(summary: dict, results: list[dict], endpoint: str, cases_path:
             if summary[carrier]["roundtrip_failures"]:
                 lines.append(f"- 往返失败 `{carrier}`："
                              f"{summary[carrier]['roundtrip_failures']} 条")
+
+    # 按设计不可逆的实体：掩码/抹除类型本就还原不回来，**不计入往返失败**，
+    # 但也不静默丢弃 —— 在这里与「评测器不确定的类型」分开列账。
+    n_by_design = sum(len(summary[c]["by_design_irreversible"]) for c in CARRIERS)
+    if n_by_design:
+        flat_by_design = summary["flat"]["by_design_irreversible"]
+        lines += [
+            "",
+            f"## 按设计不可逆（豁免往返断言）：{len(flat_by_design)} 条 · flat 载体",
+            "",
+            "mask / redact 命运的值**本就不该被还原**（掩码保后 4 位即其目的）。",
+            "此处单列台账，不静默丢弃：",
+            "",
+            "| Case | 值 |",
+            "|---|---|",
+        ]
+        seen: set[tuple[str, str]] = set()
+        for cid, val in flat_by_design:
+            if (cid, val) in seen:
+                continue
+            seen.add((cid, val))
+            lines.append(f"| `{cid}` | `{val}` |")
+        lines.append("")
+        lines.append(f"> 判定方式：对每个实体类型发起一次最小样本探测（"
+                     f"脱敏 → 还原），还原不回来的类型即按设计不可逆。"
+                     f"探测结果按类型缓存，不硬编码类型清单。")
+
     lines += ["", "---", ""]
     return "\n".join(lines)
 
@@ -328,24 +431,26 @@ def _mk_fake_server(terms: dict[str, str], break_tool_calls: bool):
 
 def selftest(limit: int) -> int:
     cases = []
-    for cid, _subset, expect, text in load_cases(DEFAULT_CASES):
-        cases.append((cid, [e.value for e in expect], text))
+    for cid, _subset, expect, text, _misses in load_cases(DEFAULT_CASES):
+        cases.append((cid, [(e.type, e.value) for e in expect], text))
         if len(cases) >= limit:
             break
     if not cases:
         print("FAIL: 语料为空", file=sys.stderr)
         return 1
-    terms = {v: "PII" for _c, vals, _t in cases for v in vals}
+    terms = {v: "PII" for _c, pairs, _t in cases for _typ, v in pairs}
 
     failures = 0
 
     # 1) 正确实现 —— 期望 0 regression、往返全通过
     srv = _mk_fake_server(terms, break_tool_calls=False)
     base = f"http://127.0.0.1:{srv.server_address[1]}"
-    results = [eval_case(cid, vals, text,
+    rev: dict[str, bool | None] = {}
+    results = [eval_case(cid, pairs, text,
                          lambda m: gateway_redact(base, m, 10.0, "", "placeholder"),
-                         lambda r, rid: gateway_restore(base, r, rid, 10.0, ""))
-               for cid, vals, text in cases]
+                         lambda r, rid: gateway_restore(base, r, rid, 10.0, ""),
+                         rev)
+               for cid, pairs, text in cases]
     s = summarize(results)
     reg = sum(len(s[c]["regressions"]) for c in CARRIERS)
     rtf = sum(s[c]["roundtrip_failures"] for c in CARRIERS)
@@ -358,10 +463,12 @@ def selftest(limit: int) -> int:
     # 2) 故意漏实现（不脱敏 tool_calls）—— 期望必须报出 regression
     srv = _mk_fake_server(terms, break_tool_calls=True)
     base = f"http://127.0.0.1:{srv.server_address[1]}"
-    results = [eval_case(cid, vals, text,
+    rev2: dict[str, bool | None] = {}
+    results = [eval_case(cid, pairs, text,
                          lambda m: gateway_redact(base, m, 10.0, "", "placeholder"),
-                         lambda r, rid: gateway_restore(base, r, rid, 10.0, ""))
-               for cid, vals, text in cases]
+                         lambda r, rid: gateway_restore(base, r, rid, 10.0, ""),
+                         rev2)
+               for cid, pairs, text in cases]
     s = summarize(results)
     bad = sum(len(s[c]["regressions"]) for c in ("tool_call", "tool_call_nested"))
     print(f"[selftest] 故意漏实现（跳过 tool_calls）：regression={bad}")
@@ -399,9 +506,9 @@ def main(argv: list[str] | None = None) -> int:
         print(f"FAIL: cases not found: {cases_path}", file=sys.stderr)
         return 1
 
-    todo: list[tuple[str, list[str], str]] = []
-    for cid, _subset, expect, text in load_cases(cases_path):
-        todo.append((cid, [e.value for e in expect], text))
+    todo: list[tuple[str, list[tuple[str, str]], str]] = []
+    for cid, _subset, expect, text, _misses in load_cases(cases_path):
+        todo.append((cid, [(e.type, e.value) for e in expect], text))
         if args.limit and len(todo) >= args.limit:
             break
 
@@ -411,7 +518,13 @@ def main(argv: list[str] | None = None) -> int:
     def restore(r, rid):
         return gateway_restore(args.base_url, r, rid, args.timeout, args.token)
 
-    results = [eval_case(cid, vals, text, redact, restore) for cid, vals, text in todo]
+    reversibility: dict[str, bool | None] = {}
+    results = [eval_case(cid, pairs, text, redact, restore, reversibility)
+               for cid, pairs, text in todo]
+    irreversible = sorted(t for t, ok in reversibility.items() if ok is False)
+    print(f"[carriers] 可逆性探测：{reversibility}", file=sys.stderr)
+    if irreversible:
+        print(f"[carriers] 按设计不可逆（豁免往返断言）：{irreversible}", file=sys.stderr)
     summary = summarize(results)
     report = render_report(summary, results,
                            f"{args.base_url}/v1/privacy/*", cases_path, args.engine)

@@ -122,7 +122,13 @@ class PerType:
         return 2 * p * r / (p + r) if (p + r) else 0.0
 
 
-def load_cases(path: Path) -> Iterable[tuple[str, str, list[Expect]]]:
+def load_cases(path: Path) -> Iterable[tuple[str, str, list[Expect], str, set[str]]]:
+    """逐行读语料，产出 (case_id, subset, expect, text, expect_miss_values)。
+
+    第 5 项 `expect_miss_values` 是**已知弱点**的值集合：真 PII，但语料预先声明当前
+    检测器抓不到。调用方必须把这些值从「误报」里剔除——它们本来就不是误报，
+    抓到了是检测器比语料作者预期更强。详见 bench_runner_adversarial.py 顶部说明。
+    """
     with path.open("r", encoding="utf-8") as f:
         for lineno, line in enumerate(f, 1):
             line = line.strip()
@@ -143,7 +149,9 @@ def load_cases(path: Path) -> Iterable[tuple[str, str, list[Expect]]]:
                 )
                 for e in obj.get("expect", [])
             ]
-            yield cid, subset, expect, obj.get("text", "")
+            misses = {str(m.get("value", "")) for m in obj.get("expect_miss", [])}
+            misses.discard("")
+            yield cid, subset, expect, obj.get("text", ""), misses
 
 
 # 【2026-09-11】无代理 opener：bench 永远打本地网关，绝不能走系统代理。
@@ -198,8 +206,11 @@ def eval_cases(endpoint: str, cases_path: Path) -> tuple[list[CaseResult], dict[
     results: list[CaseResult] = []
     latencies: list[int] = []
 
-    for cid, subset, expect, text in load_cases(cases_path):
+    for cid, subset, expect, text, miss_values in load_cases(cases_path):
         detected, lat_ms, err = call_detect(endpoint, text)
+        # 已知弱点的检出不计误报（它是真 PII，只是语料预先声明抓不到）。
+        if miss_values:
+            detected = [d for d in detected if d.value not in miss_values]
         tp, fp, fn = strict_match(expect, detected)
         cr = CaseResult(
             case_id=cid,
@@ -261,7 +272,7 @@ def selftest() -> int:
     import threading
 
     cases = []
-    for cid, subset, expect, text in load_cases(DEFAULT_CASES):
+    for cid, subset, expect, text, _misses in load_cases(DEFAULT_CASES):
         cases.append({"id": cid, "subset": subset, "text": text,
                       "expect": [{"type": e.type, "value": e.value,
                                   "start": e.start, "end": e.end}
@@ -492,9 +503,12 @@ def main(argv: list[str] | None = None) -> int:
     print(f"[bench] evaluating {cases_path} via {args.endpoint}", file=sys.stderr)
     results, per_type, latencies = eval_cases(args.endpoint, cases_path)
 
+    # 文件名必须带语料名：时间戳只有秒级精度，同一秒内跑两个语料会**静默互相覆盖**
+    # （cases.jsonl 的 240 条报告曾被 cases_en.jsonl 的 180 条报告覆盖，只剩一份）。
     ts = time.strftime("%Y%m%d-%H%M%S")
-    md_path = out_dir / f"phase0_{args.engine}_{ts}.md"
-    js_path = out_dir / f"phase0_{args.engine}_{ts}.json"
+    corpus = cases_path.stem
+    md_path = out_dir / f"phase0_{args.engine}_{corpus}_{ts}.md"
+    js_path = out_dir / f"phase0_{args.engine}_{corpus}_{ts}.json"
     report = render_report(args.engine, args.endpoint, results, per_type, latencies, cases_path)
     md_path.write_text(report, encoding="utf-8")
 

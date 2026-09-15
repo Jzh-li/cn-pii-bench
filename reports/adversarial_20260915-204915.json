@@ -1,0 +1,79 @@
+{
+  "endpoint": "http://127.0.0.1:8414/v1/privacy/redact",
+  "cases": "/home/jzhli/cn-pii-bench/fixtures/cases_adversarial.jsonl",
+  "n_cases": 28,
+  "corpus": {
+    "n_cases": 28,
+    "unique_texts": 28,
+    "duplicate_groups": 0,
+    "duplicate_ids": [],
+    "unique_shapes": 21
+  },
+  "err_count": 0,
+  "total_tp": 23,
+  "total_fp": 0,
+  "total_fn": 14,
+  "precision": 1.0,
+  "recall": 0.6216,
+  "f1": 0.7667,
+  "expect_miss_total": 4,
+  "expect_miss_open": 4,
+  "expect_miss_recovered": 0,
+  "excused_detections": 0,
+  "pessimistic_fn": 18,
+  "pessimistic_recall": 0.561,
+  "pessimistic_f1": 0.7188,
+  "latency_p50_ms": 0,
+  "latency_p95_ms": 1,
+  "latency_p99_ms": 7,
+  "by_subset": {
+    "phone": {
+      "tp": 6,
+      "fp": 0,
+      "fn": 0,
+      "n_cases": 9
+    },
+    "person_name": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 4,
+      "n_cases": 4
+    },
+    "address": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 4,
+      "n_cases": 4
+    },
+    "email": {
+      "tp": 4,
+      "fp": 0,
+      "fn": 0,
+      "n_cases": 4
+    },
+    "ip_address": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "n_cases": 2
+    },
+    "mixed": {
+      "tp": 6,
+      "fp": 0,
+      "fn": 2,
+      "n_cases": 2
+    },
+    "tool_call": {
+      "tp": 4,
+      "fp": 0,
+      "fn": 4,
+      "n_cases": 2
+    },
+    "id_card_masked": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "n_cases": 1
+    }
+  }
+}

@@ -248,9 +248,18 @@ BUILDERS = {
 
 def generate(rnd):
     cases = []
+    seen: set[str] = set()
     for subset, builder in BUILDERS.items():
         for i in range(PER_SUBSET):
+            # 重试直到文本唯一。同一句话出现两遍不增加任何覆盖，只增加评分权重——
+            # 会让标题 F1 被少数模板放大（对抗语料曾因此虚高）。validate.py 把重复判为
+            # 错误，这里从源头堵住，保证「240 行」就是 240 个独立文本。
             text, ents = builder(rnd)
+            for _ in range(1000):
+                if text not in seen:
+                    break
+                text, ents = builder(rnd)
+            seen.add(text)
             cases.append({
                 "id": "%s-%03d" % (subset, i + 1),
                 "subset": subset,
@@ -261,11 +270,16 @@ def generate(rnd):
 
 
 def self_check(cases):
-    """校验每条 ground truth 的 value 与字节偏移自洽。"""
+    """校验每条 ground truth 的 value 与字节偏移自洽，且不存在重复样本。"""
     errors = 0
+    seen: dict[str, str] = {}
     for c in cases:
         t = c["text"]
         tb = t.encode("utf-8")
+        if t in seen:
+            errors += 1
+            print("  DUPLICATE %s == %s" % (c["id"], seen[t]), file=sys.stderr)
+        seen.setdefault(t, c["id"])
         for g in c["expect"]:
             seg = tb[g["start"]:g["end"]].decode("utf-8", "replace")
             if seg != g["value"]:
