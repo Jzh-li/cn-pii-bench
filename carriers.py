@@ -259,6 +259,11 @@ def summarize(results: list[dict]) -> dict:
         for r in results:
             for v in r["carriers"][carrier].get("by_design_irreversible", []):
                 by_design.append([r["id"], v])
+        # 请求错误必须单独计数。否则「网关不可达」会让所有载体都 0 regression、
+        # 0 往返失败 —— 门禁打印 PARITY OK 并退出 0，什么都没测到却说通过。
+        # 这是典型的「不会红的门禁」，比没有门禁更糟：它给出虚假保证。
+        errors = [[r["id"], r["carriers"][carrier]["error"]]
+                  for r in results if "error" in r["carriers"][carrier]]
         summary[carrier] = {
             "anonymized": anonymized,
             "leaked": leaked,
@@ -266,6 +271,7 @@ def summarize(results: list[dict]) -> dict:
             "roundtrip_checked": len(rt_checked),
             "roundtrip_failures": sum(1 for x in rt_checked if x is False),
             "by_design_irreversible": by_design,
+            "errors": errors,
         }
     summary["_flat_baseline"] = {"anonymized": flat_total}
     return summary
@@ -284,22 +290,36 @@ def render_report(summary: dict, results: list[dict], endpoint: str, cases_path:
         "- 口径：**L2 泄漏级**（脱敏后载荷中 PII 原串是否消失），非检测器 span 级",
         f"- flat 基线脱敏条数：**{flat_total}**",
         "",
-        "| 载体 | 已脱敏 | 泄漏 | 相对 flat 的 regression | 往返通过 |",
-        "|---|---|---|---|---|",
+        "| 载体 | 已脱敏 | 泄漏 | 相对 flat 的 regression | 往返通过 | 请求错误 |",
+        "|---|---|---|---|---|---|",
     ]
     total_reg = 0
+    total_err = 0
     for carrier in CARRIERS:
         s = summary[carrier]
         total_reg += len(s["regressions"])
+        total_err += len(s["errors"])
         flag = "OK" if not s["regressions"] else f"**{len(s['regressions'])} REGRESSIONS**"
         rt_txt = (f"{s['roundtrip_checked'] - s['roundtrip_failures']}/{s['roundtrip_checked']}"
                   if s["roundtrip_checked"] else "—")
+        err_txt = "0" if not s["errors"] else f"**{len(s['errors'])} ERROR**"
         lines.append(
-            f"| `{carrier}` | {s['anonymized']} | {s['leaked']} | {flag} | {rt_txt} |")
+            f"| `{carrier}` | {s['anonymized']} | {s['leaked']} | {flag} | {rt_txt} | {err_txt} |")
 
     total_rt_fail = sum(summary[c]["roundtrip_failures"] for c in CARRIERS)
     lines += ["", "## 结论", ""]
-    if total_reg == 0 and total_rt_fail == 0:
+    if total_err:
+        # 先把「没测到」和「测了不达标」分开报。少了这一支，网关不可达会渲染成
+        # PARITY OK —— 一个永远不会红的门禁比没有门禁更糟，因为它给出虚假保证。
+        lines.append(f"❌ **无法判定（{total_err} 条请求错误）**："
+                     f"端点不可达或返回异常，本次**没有测到**任何结论。")
+        lines.append("")
+        lines.append("| 载体 | Case | 错误 |")
+        lines.append("|---|---|---|")
+        for carrier in CARRIERS:
+            for cid, err in summary[carrier]["errors"][:5]:
+                lines.append(f"| `{carrier}` | `{cid}` | {err} |")
+    elif total_reg == 0 and total_rt_fail == 0:
         lines.append(
             f"✅ **PARITY OK**：{len(CARRIERS) - 1} 种结构化载体相对 flat 基线 "
             f"0 regression，往返 0 失败。")
@@ -477,6 +497,26 @@ def selftest(limit: int) -> int:
         failures += 1
     srv.shutdown()
 
+    # 3) 端点不可达 —— 必须被判为「无法判定」而不是「0 regression 所以 OK」
+    dead = "http://127.0.0.1:1"   # 1 号端口不会有服务
+    rev3: dict[str, bool | None] = {}
+    results = [eval_case(cid, pairs, text,
+                         lambda m: gateway_redact(dead, m, 2.0, "", "placeholder"),
+                         lambda r, rid: gateway_restore(dead, r, rid, 2.0, ""),
+                         rev3)
+               for cid, pairs, text in cases[:3]]
+    s = summarize(results)
+    errs = sum(len(s[c]["errors"]) for c in CARRIERS)
+    regs = sum(len(s[c]["regressions"]) for c in CARRIERS)
+    print(f"[selftest] 端点不可达：请求错误={errs} regression={regs}")
+    if errs == 0:
+        print("  FAIL 端点不可达却没记到错误 —— 门禁在网关挂掉时会误判为通过")
+        failures += 1
+    if regs != 0:
+        print(f"  FAIL 端点不可达时不应该产出 regression（实得 {regs}）—— "
+              f"错误应走独立的错误通道")
+        failures += 1
+
     print("SELFTEST PASSED" if failures == 0 else "SELFTEST FAILED")
     return failures
 
@@ -494,7 +534,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--limit", type=int, default=0, help="只跑前 N 条（0=全部）")
     p.add_argument("--timeout", type=float, default=15.0)
     p.add_argument("--gate", action="store_true",
-                   help="守门模式：有 regression 或往返失败则退出码 2（供 CI 用）")
+                   help="守门模式：有 regression / 往返失败 / 请求错误则退出码 2（供 CI 用）")
     p.add_argument("--selftest", action="store_true", help="不启网关自检评估器")
     args = p.parse_args(argv)
 
@@ -544,12 +584,19 @@ def main(argv: list[str] | None = None) -> int:
     print(report)
     total_reg = sum(len(summary[c]["regressions"]) for c in CARRIERS)
     total_rt = sum(summary[c]["roundtrip_failures"] for c in CARRIERS)
-    print(f"[carriers] regressions={total_reg} roundtrip_failures={total_rt}")
+    total_err = sum(len(summary[c]["errors"]) for c in CARRIERS)
+    print(f"[carriers] regressions={total_reg} roundtrip_failures={total_rt} "
+          f"request_errors={total_err}")
     print(f"[carriers] md  -> {md_path}")
     print(f"[carriers] json-> {js_path}")
 
-    if args.gate and (total_reg or total_rt):
-        return 2
+    if args.gate:
+        if total_err:
+            print(f"[carriers] 门禁未通过：{total_err} 条请求错误 —— "
+                  f"端点不可达或返回异常，本次没有任何有效结论", file=sys.stderr)
+            return 2
+        if total_reg or total_rt:
+            return 2
     return 0
 
 

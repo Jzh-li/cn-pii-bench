@@ -184,7 +184,35 @@ def load_cases(path: Path) -> Iterable[dict]:
             yield json.loads(line)
 
 
-def main():
+def gate_exit_code(args, precision: float, recall: float, f1: float) -> int:
+    """按 --min-* 阈值判定是否放行。未指定任何阈值时恒为 0（纯报告模式）。
+
+    三条阈值的语义（用于 CI 守门）：
+
+    - `precision`：**必须**不低于下限。这是 PII 网关最不能退的指标 ——
+      误报会破坏正常对话内容（把非 PII 换成占位符），比漏检更容易被用户察觉。
+    - `recall` / `f1`：用**严格口径**（`expect_miss` 豁免）。弱点台账另有悲观口径，
+      不作为门禁 —— 悲观口径包含「已声明且接受」的缺口，拿它做门禁会永远红。
+    """
+    limits = [
+        ("precision", args.min_precision, precision),
+        ("recall", args.min_recall, recall),
+        ("f1", args.min_f1, f1),
+    ]
+    bad = [(n, lim, got) for n, lim, got in limits if lim is not None and got < lim]
+    if not bad:
+        if any(lim is not None for _, lim, _ in limits):
+            print("[adversarial] 阈值守门：通过", file=sys.stderr)
+        return 0
+    for name, lim, got in bad:
+        print(f"[adversarial] 阈值守门：未通过 —— {name}={got:.4f} < {lim:.4f}",
+              file=sys.stderr)
+    print("[adversarial] 说明：低召回若是「已知弱点」所致，请查报告里的 expect_miss 台账；"
+          "低精确率通常是检测层误报，属回归。", file=sys.stderr)
+    return 2
+
+
+def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--endpoint", default="http://127.0.0.1:8401/v1/privacy/redact")
     parser.add_argument("--cases", default=str(DEFAULT_CASES))
@@ -193,6 +221,14 @@ def main():
                         help="报告落盘目录（跟 runner.py / carriers.py 口径一致）")
     parser.add_argument("--no-write", action="store_true",
                         help="只打印，不落盘（--report 之外不需要时用）")
+    # 阈值守门（供 CI 用）。阈值刻意放在命令行而不是代码里 —— 让「当前承诺的底线」
+    # 在 CI 配置文件里一眼可见，改阈值必须在 review 里显式出现。
+    parser.add_argument("--min-precision", type=float, default=None,
+                        help="精确率下限，低于则退出码 2")
+    parser.add_argument("--min-recall", type=float, default=None,
+                        help="严格口径召回率下限，低于则退出码 2")
+    parser.add_argument("--min-f1", type=float, default=None,
+                        help="严格口径 F1 下限，低于则退出码 2")
     args = parser.parse_args()
 
     cases = list(load_cases(Path(args.cases)))
@@ -303,7 +339,7 @@ def main():
             js = out_dir / f"adversarial_{time.strftime('%Y%m%d-%H%M%S')}.json"
             js.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
             print(f"[adversarial] json-> {js}", file=sys.stderr)
-        return
+        return gate_exit_code(args, precision, recall, f1)
 
     # Markdown 报告
     out: list[str] = []
@@ -385,6 +421,8 @@ def main():
         print(f"[adversarial] md  -> {md_path}", file=sys.stderr)
         print(f"[adversarial] json-> {js_path}", file=sys.stderr)
 
+    return gate_exit_code(args, precision, recall, f1)
+
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
