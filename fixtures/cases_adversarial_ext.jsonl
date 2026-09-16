@@ -1,0 +1,318 @@
+{"id": "phone_emoji_adv-001", "subset": "phone", "text": "联系销售李娜（手机：📱13800138000），工作日联系。📞", "expect": [{"type": "zh_phone", "value": "13800138000", "start": 34, "end": 45}, {"type": "zh_person_name", "value": "李娜", "start": 12, "end": 18}]}
+{"id": "phone_emoji_adv-002", "subset": "phone", "text": "联系销售李娜（手机：📱13912345678），工作日联系。📞", "expect": [{"type": "zh_phone", "value": "13912345678", "start": 34, "end": 45}, {"type": "zh_person_name", "value": "李娜", "start": 12, "end": 18}]}
+{"id": "phone_emoji_adv-003", "subset": "phone", "text": "联系销售李娜（手机：📱15012345678），工作日联系。📞", "expect": [{"type": "zh_phone", "value": "15012345678", "start": 34, "end": 45}, {"type": "zh_person_name", "value": "李娜", "start": 12, "end": 18}]}
+{"id": "phone_fmt_adv-004", "subset": "phone", "text": "联系电话：+86-186-1234-5678，仅工作时段接听。", "expect": [{"type": "zh_phone", "value": "+86-186-1234-5678", "start": 15, "end": 32}]}
+{"id": "phone_fmt_adv-005", "subset": "phone", "text": "联系电话：+86-199-1234-5678，仅工作时段接听。", "expect": [{"type": "zh_phone", "value": "+86-199-1234-5678", "start": 15, "end": 32}]}
+{"id": "phone_fmt_adv-006", "subset": "phone", "text": "联系电话：+86-170-1234-5678，仅工作时段接听。", "expect": [{"type": "zh_phone", "value": "+86-170-1234-5678", "start": 15, "end": 32}]}
+{"id": "phone_nosep_adv-007", "subset": "phone", "text": "紧急联系人手机:17012345678,赵敏收。", "expect": [{"type": "zh_phone", "value": "17012345678", "start": 22, "end": 33}, {"type": "zh_person_name", "value": "赵敏", "start": 34, "end": 40}]}
+{"id": "phone_nosep_adv-008", "subset": "phone", "text": "紧急联系人手机:13512345678,赵敏收。", "expect": [{"type": "zh_phone", "value": "13512345678", "start": 22, "end": 33}, {"type": "zh_person_name", "value": "赵敏", "start": 34, "end": 40}]}
+{"id": "phone_nosep_adv-009", "subset": "phone", "text": "紧急联系人手机:13800138000,赵敏收。", "expect": [{"type": "zh_phone", "value": "13800138000", "start": 22, "end": 33}, {"type": "zh_person_name", "value": "赵敏", "start": 34, "end": 40}]}
+{"id": "person_ethnic_adv-010", "subset": "person_name", "text": "对接人买买提·阿凡提确认出席本次对接会。", "expect": [{"type": "zh_person_name", "value": "买买提·阿凡提", "start": 9, "end": 29}]}
+{"id": "person_compound_adv-011", "subset": "person_name", "text": "本次合作由欧阳娜娜代表团队出面。", "expect": [{"type": "zh_person_name", "value": "欧阳娜娜", "start": 15, "end": 27}]}
+{"id": "addr_abbrev_adv-012", "subset": "address", "text": "出差：上海浦东张江园区 软件园 12 号楼", "expect": [{"type": "zh_address", "value": "上海浦东张江园区 软件园 12 号楼", "start": 9, "end": 53}]}
+{"id": "email_plus_adv-013", "subset": "email", "text": "Support: support+security@example.com （安全团队）", "expect": [{"type": "email", "value": "support+security@example.com", "start": 9, "end": 37}]}
+{"id": "ip_port_adv-014", "subset": "ip_address", "text": "测试服务器地址：10.0.0.1:8080，登录后进入调试模式。", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 24, "end": 32}]}
+{"id": "person_ethnic_adv-015", "subset": "person_name", "text": "对接人努尔买买提·吐尔逊确认出席本次对接会。", "expect": [{"type": "zh_person_name", "value": "努尔买买提·吐尔逊", "start": 9, "end": 35}]}
+{"id": "person_compound_adv-016", "subset": "person_name", "text": "本次合作由上官婉儿代表团队出面。", "expect": [{"type": "zh_person_name", "value": "上官婉儿", "start": 15, "end": 27}]}
+{"id": "addr_abbrev_adv-017", "subset": "address", "text": "出差：广州天河软件园 12 号楼", "expect": [{"type": "zh_address", "value": "广州天河软件园 12 号楼", "start": 9, "end": 40}]}
+{"id": "email_plus_adv-018", "subset": "email", "text": "Support: billing+invoices@example.org （安全团队）", "expect": [{"type": "email", "value": "billing+invoices@example.org", "start": 9, "end": 37}]}
+{"id": "ip_port_adv-019", "subset": "ip_address", "text": "测试服务器地址：192.168.1.100:8443，登录后进入调试模式。", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 24, "end": 37}]}
+{"id": "addr_noprov_adv-020", "subset": "address", "text": "深圳南山区科苑路88号 邮编518057", "expect": [{"type": "zh_address", "value": "深圳南山区科苑路88号", "start": 0, "end": 29}]}
+{"id": "addr_noprov_adv-021", "subset": "address", "text": "成都市高新区天府软件园D区 邮编518057", "expect": [{"type": "zh_address", "value": "成都市高新区天府软件园D区", "start": 0, "end": 37}]}
+{"id": "email_chinese_adv-022", "subset": "email", "text": "如有问题请联系 李雷<lilei@163.com>。", "expect": [{"type": "email", "value": "lilei@163.com", "start": 29, "end": 42}, {"type": "zh_person_name", "value": "李雷", "start": 22, "end": 28}]}
+{"id": "email_chinese_adv-023", "subset": "email", "text": "如有问题请联系 李雷<hanmeimei@163.com>。", "expect": [{"type": "email", "value": "hanmeimei@163.com", "start": 29, "end": 46}, {"type": "zh_person_name", "value": "李雷", "start": 22, "end": 28}]}
+{"id": "mixed_real_adv-024", "subset": "mixed", "text": "客户资料：李雷，电话 13912345678，地址北京市海淀区中关村南大街 5 号，邮箱 lilei@example.com。请尽快对接。", "expect": [{"type": "zh_person_name", "value": "李雷", "start": 15, "end": 21}, {"type": "zh_phone", "value": "13912345678", "start": 31, "end": 42}, {"type": "zh_address", "value": "北京市海淀区中关村南大街 5 号", "start": 51, "end": 93}, {"type": "email", "value": "lilei@example.com", "start": 103, "end": 120}]}
+{"id": "mixed_real_adv-025", "subset": "mixed", "text": "客户资料：李雷，电话 13700137000，地址北京市海淀区中关村南大街 5 号，邮箱 hanmeimei@example.com。请尽快对接。", "expect": [{"type": "zh_person_name", "value": "李雷", "start": 15, "end": 21}, {"type": "zh_phone", "value": "13700137000", "start": 31, "end": 42}, {"type": "zh_address", "value": "北京市海淀区中关村南大街 5 号", "start": 51, "end": 93}, {"type": "email", "value": "hanmeimei@example.com", "start": 103, "end": 124}]}
+{"id": "mixed_tool_adv-026", "subset": "tool_call", "text": "{\"name\": \"send_email\", \"arguments\": {\"to\": \"zhangsan@example.com\", \"subject\": \"会议通知\", \"body\": \"请张伟于 13800138000 前到达会场。\", \"location\": \"北京市朝阳区国贸大厦\"}}", "expect": [{"type": "email", "value": "zhangsan@example.com", "start": 44, "end": 64}, {"type": "zh_person_name", "value": "张伟", "start": 106, "end": 112}, {"type": "zh_phone", "value": "13800138000", "start": 116, "end": 127}, {"type": "zh_address", "value": "北京市朝阳区国贸大厦", "start": 162, "end": 192}]}
+{"id": "mixed_tool_adv-027", "subset": "tool_call", "text": "{\"name\": \"send_email\", \"arguments\": {\"to\": \"lisi@example.org\", \"subject\": \"会议通知\", \"body\": \"请王芳于 15012345678 前到达会场。\", \"location\": \"北京市朝阳区国贸大厦\"}}", "expect": [{"type": "email", "value": "lisi@example.org", "start": 44, "end": 60}, {"type": "zh_person_name", "value": "王芳", "start": 102, "end": 108}, {"type": "zh_phone", "value": "15012345678", "start": 112, "end": 123}, {"type": "zh_address", "value": "北京市朝阳区国贸大厦", "start": 158, "end": 188}]}
+{"id": "idcard_mask_adv-028", "subset": "id_card_masked", "text": "员工张三的身份证号是 110101********8531，请核对。", "expect": [{"type": "zh_person_name", "value": "张三", "start": 6, "end": 12}], "expect_miss": [{"type": "zh_id_card", "value": "110101********8531", "reason": "real_world_masked_id_card"}]}
+{"id": "zh_phone-bare-chat_sf-001", "subset": "surface_matrix", "text": "同事在群里说：13800138000，记得回一下。", "expect": [{"type": "zh_phone", "value": "13800138000", "start": 21, "end": 32}]}
+{"id": "zh_phone-bare-colon_tight_sf-002", "subset": "surface_matrix", "text": "联系方式:13800138000", "expect": [{"type": "zh_phone", "value": "13800138000", "start": 13, "end": 24}]}
+{"id": "zh_phone-bare-paren_sf-003", "subset": "surface_matrix", "text": "（13800138000）", "expect": [{"type": "zh_phone", "value": "13800138000", "start": 3, "end": 14}]}
+{"id": "zh_phone-bare-quote_sf-004", "subset": "surface_matrix", "text": "他说“13800138000”就挂了。", "expect": [{"type": "zh_phone", "value": "13800138000", "start": 9, "end": 20}]}
+{"id": "zh_phone-bare-log_sf-005", "subset": "surface_matrix", "text": "[INFO] upstream contact=13800138000 status=queued", "expect": [{"type": "zh_phone", "value": "13800138000", "start": 24, "end": 35}]}
+{"id": "zh_phone-bare-ticket_sf-006", "subset": "surface_matrix", "text": "【工单】回访方式：13800138000；优先级：普通", "expect": [{"type": "zh_phone", "value": "13800138000", "start": 27, "end": 38}]}
+{"id": "zh_phone-bare-signature_sf-007", "subset": "surface_matrix", "text": "—— 如有疑问请联系 13800138000", "expect": [{"type": "zh_phone", "value": "13800138000", "start": 29, "end": 40}]}
+{"id": "zh_phone-bare-trailing_sf-008", "subset": "surface_matrix", "text": "需要确认的信息是 13800138000", "expect": [{"type": "zh_phone", "value": "13800138000", "start": 25, "end": 36}]}
+{"id": "zh_phone-bare-fw_colon_sf-009", "subset": "surface_matrix", "text": "联系方式：13800138000，谢谢", "expect": [{"type": "zh_phone", "value": "13800138000", "start": 15, "end": 26}]}
+{"id": "zh_phone-bare-newline_sf-010", "subset": "surface_matrix", "text": "第一行说明\n13800138000\n第三行备注", "expect": [{"type": "zh_phone", "value": "13800138000", "start": 16, "end": 27}]}
+{"id": "zh_phone-bare-chat_sf-011", "subset": "surface_matrix", "text": "同事在群里说：13912345678，记得回一下。", "expect": [{"type": "zh_phone", "value": "13912345678", "start": 21, "end": 32}]}
+{"id": "zh_phone-bare-colon_tight_sf-012", "subset": "surface_matrix", "text": "联系方式:13912345678", "expect": [{"type": "zh_phone", "value": "13912345678", "start": 13, "end": 24}]}
+{"id": "zh_phone-bare-paren_sf-013", "subset": "surface_matrix", "text": "（13912345678）", "expect": [{"type": "zh_phone", "value": "13912345678", "start": 3, "end": 14}]}
+{"id": "zh_phone-bare-quote_sf-014", "subset": "surface_matrix", "text": "他说“13912345678”就挂了。", "expect": [{"type": "zh_phone", "value": "13912345678", "start": 9, "end": 20}]}
+{"id": "zh_phone-bare-log_sf-015", "subset": "surface_matrix", "text": "[INFO] upstream contact=13912345678 status=queued", "expect": [{"type": "zh_phone", "value": "13912345678", "start": 24, "end": 35}]}
+{"id": "zh_phone-bare-ticket_sf-016", "subset": "surface_matrix", "text": "【工单】回访方式：13912345678；优先级：普通", "expect": [{"type": "zh_phone", "value": "13912345678", "start": 27, "end": 38}]}
+{"id": "zh_phone-bare-signature_sf-017", "subset": "surface_matrix", "text": "—— 如有疑问请联系 13912345678", "expect": [{"type": "zh_phone", "value": "13912345678", "start": 29, "end": 40}]}
+{"id": "zh_phone-bare-trailing_sf-018", "subset": "surface_matrix", "text": "需要确认的信息是 13912345678", "expect": [{"type": "zh_phone", "value": "13912345678", "start": 25, "end": 36}]}
+{"id": "zh_phone-bare-fw_colon_sf-019", "subset": "surface_matrix", "text": "联系方式：13912345678，谢谢", "expect": [{"type": "zh_phone", "value": "13912345678", "start": 15, "end": 26}]}
+{"id": "zh_phone-bare-newline_sf-020", "subset": "surface_matrix", "text": "第一行说明\n13912345678\n第三行备注", "expect": [{"type": "zh_phone", "value": "13912345678", "start": 16, "end": 27}]}
+{"id": "zh_phone-bare-chat_sf-021", "subset": "surface_matrix", "text": "同事在群里说：13512345678，记得回一下。", "expect": [{"type": "zh_phone", "value": "13512345678", "start": 21, "end": 32}]}
+{"id": "zh_phone-bare-colon_tight_sf-022", "subset": "surface_matrix", "text": "联系方式:13512345678", "expect": [{"type": "zh_phone", "value": "13512345678", "start": 13, "end": 24}]}
+{"id": "zh_phone-bare-paren_sf-023", "subset": "surface_matrix", "text": "（13512345678）", "expect": [{"type": "zh_phone", "value": "13512345678", "start": 3, "end": 14}]}
+{"id": "zh_phone-bare-quote_sf-024", "subset": "surface_matrix", "text": "他说“13512345678”就挂了。", "expect": [{"type": "zh_phone", "value": "13512345678", "start": 9, "end": 20}]}
+{"id": "zh_phone-bare-log_sf-025", "subset": "surface_matrix", "text": "[INFO] upstream contact=13512345678 status=queued", "expect": [{"type": "zh_phone", "value": "13512345678", "start": 24, "end": 35}]}
+{"id": "zh_phone-bare-ticket_sf-026", "subset": "surface_matrix", "text": "【工单】回访方式：13512345678；优先级：普通", "expect": [{"type": "zh_phone", "value": "13512345678", "start": 27, "end": 38}]}
+{"id": "zh_phone-bare-signature_sf-027", "subset": "surface_matrix", "text": "—— 如有疑问请联系 13512345678", "expect": [{"type": "zh_phone", "value": "13512345678", "start": 29, "end": 40}]}
+{"id": "zh_phone-bare-trailing_sf-028", "subset": "surface_matrix", "text": "需要确认的信息是 13512345678", "expect": [{"type": "zh_phone", "value": "13512345678", "start": 25, "end": 36}]}
+{"id": "zh_phone-bare-fw_colon_sf-029", "subset": "surface_matrix", "text": "联系方式：13512345678，谢谢", "expect": [{"type": "zh_phone", "value": "13512345678", "start": 15, "end": 26}]}
+{"id": "zh_phone-bare-newline_sf-030", "subset": "surface_matrix", "text": "第一行说明\n13512345678\n第三行备注", "expect": [{"type": "zh_phone", "value": "13512345678", "start": 16, "end": 27}]}
+{"id": "zh_phone-dashed-chat_sf-031", "subset": "surface_matrix", "text": "同事在群里说：138-0013-8000，记得回一下。", "expect": [{"type": "zh_phone", "value": "138-0013-8000", "start": 21, "end": 34}]}
+{"id": "zh_phone-dashed-colon_tight_sf-032", "subset": "surface_matrix", "text": "联系方式:138-0013-8000", "expect": [{"type": "zh_phone", "value": "138-0013-8000", "start": 13, "end": 26}]}
+{"id": "zh_phone-dashed-paren_sf-033", "subset": "surface_matrix", "text": "（138-0013-8000）", "expect": [{"type": "zh_phone", "value": "138-0013-8000", "start": 3, "end": 16}]}
+{"id": "zh_phone-dashed-quote_sf-034", "subset": "surface_matrix", "text": "他说“138-0013-8000”就挂了。", "expect": [{"type": "zh_phone", "value": "138-0013-8000", "start": 9, "end": 22}]}
+{"id": "zh_phone-dashed-log_sf-035", "subset": "surface_matrix", "text": "[INFO] upstream contact=138-0013-8000 status=queued", "expect": [{"type": "zh_phone", "value": "138-0013-8000", "start": 24, "end": 37}]}
+{"id": "zh_phone-dashed-ticket_sf-036", "subset": "surface_matrix", "text": "【工单】回访方式：138-0013-8000；优先级：普通", "expect": [{"type": "zh_phone", "value": "138-0013-8000", "start": 27, "end": 40}]}
+{"id": "zh_phone-dashed-signature_sf-037", "subset": "surface_matrix", "text": "—— 如有疑问请联系 138-0013-8000", "expect": [{"type": "zh_phone", "value": "138-0013-8000", "start": 29, "end": 42}]}
+{"id": "zh_phone-dashed-trailing_sf-038", "subset": "surface_matrix", "text": "需要确认的信息是 138-0013-8000", "expect": [{"type": "zh_phone", "value": "138-0013-8000", "start": 25, "end": 38}]}
+{"id": "zh_phone-dashed-fw_colon_sf-039", "subset": "surface_matrix", "text": "联系方式：138-0013-8000，谢谢", "expect": [{"type": "zh_phone", "value": "138-0013-8000", "start": 15, "end": 28}]}
+{"id": "zh_phone-dashed-newline_sf-040", "subset": "surface_matrix", "text": "第一行说明\n138-0013-8000\n第三行备注", "expect": [{"type": "zh_phone", "value": "138-0013-8000", "start": 16, "end": 29}]}
+{"id": "zh_phone-dashed-chat_sf-041", "subset": "surface_matrix", "text": "同事在群里说：139-1234-5678，记得回一下。", "expect": [{"type": "zh_phone", "value": "139-1234-5678", "start": 21, "end": 34}]}
+{"id": "zh_phone-dashed-colon_tight_sf-042", "subset": "surface_matrix", "text": "联系方式:139-1234-5678", "expect": [{"type": "zh_phone", "value": "139-1234-5678", "start": 13, "end": 26}]}
+{"id": "zh_phone-dashed-paren_sf-043", "subset": "surface_matrix", "text": "（139-1234-5678）", "expect": [{"type": "zh_phone", "value": "139-1234-5678", "start": 3, "end": 16}]}
+{"id": "zh_phone-dashed-quote_sf-044", "subset": "surface_matrix", "text": "他说“139-1234-5678”就挂了。", "expect": [{"type": "zh_phone", "value": "139-1234-5678", "start": 9, "end": 22}]}
+{"id": "zh_phone-dashed-log_sf-045", "subset": "surface_matrix", "text": "[INFO] upstream contact=139-1234-5678 status=queued", "expect": [{"type": "zh_phone", "value": "139-1234-5678", "start": 24, "end": 37}]}
+{"id": "zh_phone-dashed-ticket_sf-046", "subset": "surface_matrix", "text": "【工单】回访方式：139-1234-5678；优先级：普通", "expect": [{"type": "zh_phone", "value": "139-1234-5678", "start": 27, "end": 40}]}
+{"id": "zh_phone-dashed-signature_sf-047", "subset": "surface_matrix", "text": "—— 如有疑问请联系 139-1234-5678", "expect": [{"type": "zh_phone", "value": "139-1234-5678", "start": 29, "end": 42}]}
+{"id": "zh_phone-dashed-trailing_sf-048", "subset": "surface_matrix", "text": "需要确认的信息是 139-1234-5678", "expect": [{"type": "zh_phone", "value": "139-1234-5678", "start": 25, "end": 38}]}
+{"id": "zh_phone-dashed-fw_colon_sf-049", "subset": "surface_matrix", "text": "联系方式：139-1234-5678，谢谢", "expect": [{"type": "zh_phone", "value": "139-1234-5678", "start": 15, "end": 28}]}
+{"id": "zh_phone-dashed-newline_sf-050", "subset": "surface_matrix", "text": "第一行说明\n139-1234-5678\n第三行备注", "expect": [{"type": "zh_phone", "value": "139-1234-5678", "start": 16, "end": 29}]}
+{"id": "zh_phone-dashed-chat_sf-051", "subset": "surface_matrix", "text": "同事在群里说：135-1234-5678，记得回一下。", "expect": [{"type": "zh_phone", "value": "135-1234-5678", "start": 21, "end": 34}]}
+{"id": "zh_phone-dashed-colon_tight_sf-052", "subset": "surface_matrix", "text": "联系方式:135-1234-5678", "expect": [{"type": "zh_phone", "value": "135-1234-5678", "start": 13, "end": 26}]}
+{"id": "zh_phone-dashed-paren_sf-053", "subset": "surface_matrix", "text": "（135-1234-5678）", "expect": [{"type": "zh_phone", "value": "135-1234-5678", "start": 3, "end": 16}]}
+{"id": "zh_phone-dashed-quote_sf-054", "subset": "surface_matrix", "text": "他说“135-1234-5678”就挂了。", "expect": [{"type": "zh_phone", "value": "135-1234-5678", "start": 9, "end": 22}]}
+{"id": "zh_phone-dashed-log_sf-055", "subset": "surface_matrix", "text": "[INFO] upstream contact=135-1234-5678 status=queued", "expect": [{"type": "zh_phone", "value": "135-1234-5678", "start": 24, "end": 37}]}
+{"id": "zh_phone-dashed-ticket_sf-056", "subset": "surface_matrix", "text": "【工单】回访方式：135-1234-5678；优先级：普通", "expect": [{"type": "zh_phone", "value": "135-1234-5678", "start": 27, "end": 40}]}
+{"id": "zh_phone-dashed-signature_sf-057", "subset": "surface_matrix", "text": "—— 如有疑问请联系 135-1234-5678", "expect": [{"type": "zh_phone", "value": "135-1234-5678", "start": 29, "end": 42}]}
+{"id": "zh_phone-dashed-trailing_sf-058", "subset": "surface_matrix", "text": "需要确认的信息是 135-1234-5678", "expect": [{"type": "zh_phone", "value": "135-1234-5678", "start": 25, "end": 38}]}
+{"id": "zh_phone-dashed-fw_colon_sf-059", "subset": "surface_matrix", "text": "联系方式：135-1234-5678，谢谢", "expect": [{"type": "zh_phone", "value": "135-1234-5678", "start": 15, "end": 28}]}
+{"id": "zh_phone-dashed-newline_sf-060", "subset": "surface_matrix", "text": "第一行说明\n135-1234-5678\n第三行备注", "expect": [{"type": "zh_phone", "value": "135-1234-5678", "start": 16, "end": 29}]}
+{"id": "zh_phone-spaced-chat_sf-061", "subset": "surface_matrix", "text": "同事在群里说：138 0013 8000，记得回一下。", "expect": [{"type": "zh_phone", "value": "138 0013 8000", "start": 21, "end": 34}]}
+{"id": "zh_phone-spaced-colon_tight_sf-062", "subset": "surface_matrix", "text": "联系方式:138 0013 8000", "expect": [{"type": "zh_phone", "value": "138 0013 8000", "start": 13, "end": 26}]}
+{"id": "zh_phone-spaced-paren_sf-063", "subset": "surface_matrix", "text": "（138 0013 8000）", "expect": [{"type": "zh_phone", "value": "138 0013 8000", "start": 3, "end": 16}]}
+{"id": "zh_phone-spaced-quote_sf-064", "subset": "surface_matrix", "text": "他说“138 0013 8000”就挂了。", "expect": [{"type": "zh_phone", "value": "138 0013 8000", "start": 9, "end": 22}]}
+{"id": "zh_phone-spaced-log_sf-065", "subset": "surface_matrix", "text": "[INFO] upstream contact=138 0013 8000 status=queued", "expect": [{"type": "zh_phone", "value": "138 0013 8000", "start": 24, "end": 37}]}
+{"id": "zh_phone-spaced-ticket_sf-066", "subset": "surface_matrix", "text": "【工单】回访方式：138 0013 8000；优先级：普通", "expect": [{"type": "zh_phone", "value": "138 0013 8000", "start": 27, "end": 40}]}
+{"id": "zh_phone-spaced-signature_sf-067", "subset": "surface_matrix", "text": "—— 如有疑问请联系 138 0013 8000", "expect": [{"type": "zh_phone", "value": "138 0013 8000", "start": 29, "end": 42}]}
+{"id": "zh_phone-spaced-trailing_sf-068", "subset": "surface_matrix", "text": "需要确认的信息是 138 0013 8000", "expect": [{"type": "zh_phone", "value": "138 0013 8000", "start": 25, "end": 38}]}
+{"id": "zh_phone-spaced-fw_colon_sf-069", "subset": "surface_matrix", "text": "联系方式：138 0013 8000，谢谢", "expect": [{"type": "zh_phone", "value": "138 0013 8000", "start": 15, "end": 28}]}
+{"id": "zh_phone-spaced-newline_sf-070", "subset": "surface_matrix", "text": "第一行说明\n138 0013 8000\n第三行备注", "expect": [{"type": "zh_phone", "value": "138 0013 8000", "start": 16, "end": 29}]}
+{"id": "zh_phone-spaced-chat_sf-071", "subset": "surface_matrix", "text": "同事在群里说：139 1234 5678，记得回一下。", "expect": [{"type": "zh_phone", "value": "139 1234 5678", "start": 21, "end": 34}]}
+{"id": "zh_phone-spaced-colon_tight_sf-072", "subset": "surface_matrix", "text": "联系方式:139 1234 5678", "expect": [{"type": "zh_phone", "value": "139 1234 5678", "start": 13, "end": 26}]}
+{"id": "zh_phone-spaced-paren_sf-073", "subset": "surface_matrix", "text": "（139 1234 5678）", "expect": [{"type": "zh_phone", "value": "139 1234 5678", "start": 3, "end": 16}]}
+{"id": "zh_phone-spaced-quote_sf-074", "subset": "surface_matrix", "text": "他说“139 1234 5678”就挂了。", "expect": [{"type": "zh_phone", "value": "139 1234 5678", "start": 9, "end": 22}]}
+{"id": "zh_phone-spaced-log_sf-075", "subset": "surface_matrix", "text": "[INFO] upstream contact=139 1234 5678 status=queued", "expect": [{"type": "zh_phone", "value": "139 1234 5678", "start": 24, "end": 37}]}
+{"id": "zh_phone-spaced-ticket_sf-076", "subset": "surface_matrix", "text": "【工单】回访方式：139 1234 5678；优先级：普通", "expect": [{"type": "zh_phone", "value": "139 1234 5678", "start": 27, "end": 40}]}
+{"id": "zh_phone-spaced-signature_sf-077", "subset": "surface_matrix", "text": "—— 如有疑问请联系 139 1234 5678", "expect": [{"type": "zh_phone", "value": "139 1234 5678", "start": 29, "end": 42}]}
+{"id": "zh_phone-spaced-trailing_sf-078", "subset": "surface_matrix", "text": "需要确认的信息是 139 1234 5678", "expect": [{"type": "zh_phone", "value": "139 1234 5678", "start": 25, "end": 38}]}
+{"id": "zh_phone-spaced-fw_colon_sf-079", "subset": "surface_matrix", "text": "联系方式：139 1234 5678，谢谢", "expect": [{"type": "zh_phone", "value": "139 1234 5678", "start": 15, "end": 28}]}
+{"id": "zh_phone-spaced-newline_sf-080", "subset": "surface_matrix", "text": "第一行说明\n139 1234 5678\n第三行备注", "expect": [{"type": "zh_phone", "value": "139 1234 5678", "start": 16, "end": 29}]}
+{"id": "zh_phone-spaced-chat_sf-081", "subset": "surface_matrix", "text": "同事在群里说：135 1234 5678，记得回一下。", "expect": [{"type": "zh_phone", "value": "135 1234 5678", "start": 21, "end": 34}]}
+{"id": "zh_phone-spaced-colon_tight_sf-082", "subset": "surface_matrix", "text": "联系方式:135 1234 5678", "expect": [{"type": "zh_phone", "value": "135 1234 5678", "start": 13, "end": 26}]}
+{"id": "zh_phone-spaced-paren_sf-083", "subset": "surface_matrix", "text": "（135 1234 5678）", "expect": [{"type": "zh_phone", "value": "135 1234 5678", "start": 3, "end": 16}]}
+{"id": "zh_phone-spaced-quote_sf-084", "subset": "surface_matrix", "text": "他说“135 1234 5678”就挂了。", "expect": [{"type": "zh_phone", "value": "135 1234 5678", "start": 9, "end": 22}]}
+{"id": "zh_phone-spaced-log_sf-085", "subset": "surface_matrix", "text": "[INFO] upstream contact=135 1234 5678 status=queued", "expect": [{"type": "zh_phone", "value": "135 1234 5678", "start": 24, "end": 37}]}
+{"id": "zh_phone-spaced-ticket_sf-086", "subset": "surface_matrix", "text": "【工单】回访方式：135 1234 5678；优先级：普通", "expect": [{"type": "zh_phone", "value": "135 1234 5678", "start": 27, "end": 40}]}
+{"id": "zh_phone-spaced-signature_sf-087", "subset": "surface_matrix", "text": "—— 如有疑问请联系 135 1234 5678", "expect": [{"type": "zh_phone", "value": "135 1234 5678", "start": 29, "end": 42}]}
+{"id": "zh_phone-spaced-trailing_sf-088", "subset": "surface_matrix", "text": "需要确认的信息是 135 1234 5678", "expect": [{"type": "zh_phone", "value": "135 1234 5678", "start": 25, "end": 38}]}
+{"id": "zh_phone-spaced-fw_colon_sf-089", "subset": "surface_matrix", "text": "联系方式：135 1234 5678，谢谢", "expect": [{"type": "zh_phone", "value": "135 1234 5678", "start": 15, "end": 28}]}
+{"id": "zh_phone-spaced-newline_sf-090", "subset": "surface_matrix", "text": "第一行说明\n135 1234 5678\n第三行备注", "expect": [{"type": "zh_phone", "value": "135 1234 5678", "start": 16, "end": 29}]}
+{"id": "zh_phone-dotted-chat_sf-091", "subset": "surface_matrix", "text": "同事在群里说：138.0013.8000，记得回一下。", "expect": [{"type": "zh_phone", "value": "138.0013.8000", "start": 21, "end": 34}]}
+{"id": "zh_phone-dotted-colon_tight_sf-092", "subset": "surface_matrix", "text": "联系方式:138.0013.8000", "expect": [{"type": "zh_phone", "value": "138.0013.8000", "start": 13, "end": 26}]}
+{"id": "zh_phone-dotted-paren_sf-093", "subset": "surface_matrix", "text": "（138.0013.8000）", "expect": [{"type": "zh_phone", "value": "138.0013.8000", "start": 3, "end": 16}]}
+{"id": "zh_phone-dotted-quote_sf-094", "subset": "surface_matrix", "text": "他说“138.0013.8000”就挂了。", "expect": [{"type": "zh_phone", "value": "138.0013.8000", "start": 9, "end": 22}]}
+{"id": "zh_phone-dotted-log_sf-095", "subset": "surface_matrix", "text": "[INFO] upstream contact=138.0013.8000 status=queued", "expect": [{"type": "zh_phone", "value": "138.0013.8000", "start": 24, "end": 37}]}
+{"id": "zh_phone-dotted-ticket_sf-096", "subset": "surface_matrix", "text": "【工单】回访方式：138.0013.8000；优先级：普通", "expect": [{"type": "zh_phone", "value": "138.0013.8000", "start": 27, "end": 40}]}
+{"id": "zh_phone-dotted-signature_sf-097", "subset": "surface_matrix", "text": "—— 如有疑问请联系 138.0013.8000", "expect": [{"type": "zh_phone", "value": "138.0013.8000", "start": 29, "end": 42}]}
+{"id": "zh_phone-dotted-trailing_sf-098", "subset": "surface_matrix", "text": "需要确认的信息是 138.0013.8000", "expect": [{"type": "zh_phone", "value": "138.0013.8000", "start": 25, "end": 38}]}
+{"id": "zh_phone-dotted-fw_colon_sf-099", "subset": "surface_matrix", "text": "联系方式：138.0013.8000，谢谢", "expect": [{"type": "zh_phone", "value": "138.0013.8000", "start": 15, "end": 28}]}
+{"id": "zh_phone-dotted-newline_sf-100", "subset": "surface_matrix", "text": "第一行说明\n138.0013.8000\n第三行备注", "expect": [{"type": "zh_phone", "value": "138.0013.8000", "start": 16, "end": 29}]}
+{"id": "zh_phone-dotted-chat_sf-101", "subset": "surface_matrix", "text": "同事在群里说：139.1234.5678，记得回一下。", "expect": [{"type": "zh_phone", "value": "139.1234.5678", "start": 21, "end": 34}]}
+{"id": "zh_phone-dotted-colon_tight_sf-102", "subset": "surface_matrix", "text": "联系方式:139.1234.5678", "expect": [{"type": "zh_phone", "value": "139.1234.5678", "start": 13, "end": 26}]}
+{"id": "zh_phone-dotted-paren_sf-103", "subset": "surface_matrix", "text": "（139.1234.5678）", "expect": [{"type": "zh_phone", "value": "139.1234.5678", "start": 3, "end": 16}]}
+{"id": "zh_phone-dotted-quote_sf-104", "subset": "surface_matrix", "text": "他说“139.1234.5678”就挂了。", "expect": [{"type": "zh_phone", "value": "139.1234.5678", "start": 9, "end": 22}]}
+{"id": "zh_phone-dotted-log_sf-105", "subset": "surface_matrix", "text": "[INFO] upstream contact=139.1234.5678 status=queued", "expect": [{"type": "zh_phone", "value": "139.1234.5678", "start": 24, "end": 37}]}
+{"id": "zh_phone-dotted-ticket_sf-106", "subset": "surface_matrix", "text": "【工单】回访方式：139.1234.5678；优先级：普通", "expect": [{"type": "zh_phone", "value": "139.1234.5678", "start": 27, "end": 40}]}
+{"id": "zh_phone-dotted-signature_sf-107", "subset": "surface_matrix", "text": "—— 如有疑问请联系 139.1234.5678", "expect": [{"type": "zh_phone", "value": "139.1234.5678", "start": 29, "end": 42}]}
+{"id": "zh_phone-dotted-trailing_sf-108", "subset": "surface_matrix", "text": "需要确认的信息是 139.1234.5678", "expect": [{"type": "zh_phone", "value": "139.1234.5678", "start": 25, "end": 38}]}
+{"id": "zh_phone-dotted-fw_colon_sf-109", "subset": "surface_matrix", "text": "联系方式：139.1234.5678，谢谢", "expect": [{"type": "zh_phone", "value": "139.1234.5678", "start": 15, "end": 28}]}
+{"id": "zh_phone-dotted-newline_sf-110", "subset": "surface_matrix", "text": "第一行说明\n139.1234.5678\n第三行备注", "expect": [{"type": "zh_phone", "value": "139.1234.5678", "start": 16, "end": 29}]}
+{"id": "zh_phone-dotted-chat_sf-111", "subset": "surface_matrix", "text": "同事在群里说：135.1234.5678，记得回一下。", "expect": [{"type": "zh_phone", "value": "135.1234.5678", "start": 21, "end": 34}]}
+{"id": "zh_phone-dotted-colon_tight_sf-112", "subset": "surface_matrix", "text": "联系方式:135.1234.5678", "expect": [{"type": "zh_phone", "value": "135.1234.5678", "start": 13, "end": 26}]}
+{"id": "zh_phone-dotted-paren_sf-113", "subset": "surface_matrix", "text": "（135.1234.5678）", "expect": [{"type": "zh_phone", "value": "135.1234.5678", "start": 3, "end": 16}]}
+{"id": "zh_phone-dotted-quote_sf-114", "subset": "surface_matrix", "text": "他说“135.1234.5678”就挂了。", "expect": [{"type": "zh_phone", "value": "135.1234.5678", "start": 9, "end": 22}]}
+{"id": "zh_phone-dotted-log_sf-115", "subset": "surface_matrix", "text": "[INFO] upstream contact=135.1234.5678 status=queued", "expect": [{"type": "zh_phone", "value": "135.1234.5678", "start": 24, "end": 37}]}
+{"id": "zh_phone-dotted-ticket_sf-116", "subset": "surface_matrix", "text": "【工单】回访方式：135.1234.5678；优先级：普通", "expect": [{"type": "zh_phone", "value": "135.1234.5678", "start": 27, "end": 40}]}
+{"id": "zh_phone-dotted-signature_sf-117", "subset": "surface_matrix", "text": "—— 如有疑问请联系 135.1234.5678", "expect": [{"type": "zh_phone", "value": "135.1234.5678", "start": 29, "end": 42}]}
+{"id": "zh_phone-dotted-trailing_sf-118", "subset": "surface_matrix", "text": "需要确认的信息是 135.1234.5678", "expect": [{"type": "zh_phone", "value": "135.1234.5678", "start": 25, "end": 38}]}
+{"id": "zh_phone-dotted-fw_colon_sf-119", "subset": "surface_matrix", "text": "联系方式：135.1234.5678，谢谢", "expect": [{"type": "zh_phone", "value": "135.1234.5678", "start": 15, "end": 28}]}
+{"id": "zh_phone-dotted-newline_sf-120", "subset": "surface_matrix", "text": "第一行说明\n135.1234.5678\n第三行备注", "expect": [{"type": "zh_phone", "value": "135.1234.5678", "start": 16, "end": 29}]}
+{"id": "zh_phone-country-chat_sf-121", "subset": "surface_matrix", "text": "同事在群里说：+86-138-0013-8000，记得回一下。", "expect": [{"type": "zh_phone", "value": "+86-138-0013-8000", "start": 21, "end": 38}]}
+{"id": "zh_phone-country-colon_tight_sf-122", "subset": "surface_matrix", "text": "联系方式:+86-138-0013-8000", "expect": [{"type": "zh_phone", "value": "+86-138-0013-8000", "start": 13, "end": 30}]}
+{"id": "zh_phone-country-paren_sf-123", "subset": "surface_matrix", "text": "（+86-138-0013-8000）", "expect": [{"type": "zh_phone", "value": "+86-138-0013-8000", "start": 3, "end": 20}]}
+{"id": "zh_phone-country-quote_sf-124", "subset": "surface_matrix", "text": "他说“+86-138-0013-8000”就挂了。", "expect": [{"type": "zh_phone", "value": "+86-138-0013-8000", "start": 9, "end": 26}]}
+{"id": "zh_phone-country-log_sf-125", "subset": "surface_matrix", "text": "[INFO] upstream contact=+86-138-0013-8000 status=queued", "expect": [{"type": "zh_phone", "value": "+86-138-0013-8000", "start": 24, "end": 41}]}
+{"id": "zh_phone-country-ticket_sf-126", "subset": "surface_matrix", "text": "【工单】回访方式：+86-138-0013-8000；优先级：普通", "expect": [{"type": "zh_phone", "value": "+86-138-0013-8000", "start": 27, "end": 44}]}
+{"id": "zh_phone-country-signature_sf-127", "subset": "surface_matrix", "text": "—— 如有疑问请联系 +86-138-0013-8000", "expect": [{"type": "zh_phone", "value": "+86-138-0013-8000", "start": 29, "end": 46}]}
+{"id": "zh_phone-country-trailing_sf-128", "subset": "surface_matrix", "text": "需要确认的信息是 +86-138-0013-8000", "expect": [{"type": "zh_phone", "value": "+86-138-0013-8000", "start": 25, "end": 42}]}
+{"id": "zh_phone-country-fw_colon_sf-129", "subset": "surface_matrix", "text": "联系方式：+86-138-0013-8000，谢谢", "expect": [{"type": "zh_phone", "value": "+86-138-0013-8000", "start": 15, "end": 32}]}
+{"id": "zh_phone-country-newline_sf-130", "subset": "surface_matrix", "text": "第一行说明\n+86-138-0013-8000\n第三行备注", "expect": [{"type": "zh_phone", "value": "+86-138-0013-8000", "start": 16, "end": 33}]}
+{"id": "zh_phone-country-chat_sf-131", "subset": "surface_matrix", "text": "同事在群里说：+86-139-1234-5678，记得回一下。", "expect": [{"type": "zh_phone", "value": "+86-139-1234-5678", "start": 21, "end": 38}]}
+{"id": "zh_phone-country-colon_tight_sf-132", "subset": "surface_matrix", "text": "联系方式:+86-139-1234-5678", "expect": [{"type": "zh_phone", "value": "+86-139-1234-5678", "start": 13, "end": 30}]}
+{"id": "zh_phone-country-paren_sf-133", "subset": "surface_matrix", "text": "（+86-139-1234-5678）", "expect": [{"type": "zh_phone", "value": "+86-139-1234-5678", "start": 3, "end": 20}]}
+{"id": "zh_phone-country-quote_sf-134", "subset": "surface_matrix", "text": "他说“+86-139-1234-5678”就挂了。", "expect": [{"type": "zh_phone", "value": "+86-139-1234-5678", "start": 9, "end": 26}]}
+{"id": "zh_phone-country-log_sf-135", "subset": "surface_matrix", "text": "[INFO] upstream contact=+86-139-1234-5678 status=queued", "expect": [{"type": "zh_phone", "value": "+86-139-1234-5678", "start": 24, "end": 41}]}
+{"id": "zh_phone-country-ticket_sf-136", "subset": "surface_matrix", "text": "【工单】回访方式：+86-139-1234-5678；优先级：普通", "expect": [{"type": "zh_phone", "value": "+86-139-1234-5678", "start": 27, "end": 44}]}
+{"id": "zh_phone-country-signature_sf-137", "subset": "surface_matrix", "text": "—— 如有疑问请联系 +86-139-1234-5678", "expect": [{"type": "zh_phone", "value": "+86-139-1234-5678", "start": 29, "end": 46}]}
+{"id": "zh_phone-country-trailing_sf-138", "subset": "surface_matrix", "text": "需要确认的信息是 +86-139-1234-5678", "expect": [{"type": "zh_phone", "value": "+86-139-1234-5678", "start": 25, "end": 42}]}
+{"id": "zh_phone-country-fw_colon_sf-139", "subset": "surface_matrix", "text": "联系方式：+86-139-1234-5678，谢谢", "expect": [{"type": "zh_phone", "value": "+86-139-1234-5678", "start": 15, "end": 32}]}
+{"id": "zh_phone-country-newline_sf-140", "subset": "surface_matrix", "text": "第一行说明\n+86-139-1234-5678\n第三行备注", "expect": [{"type": "zh_phone", "value": "+86-139-1234-5678", "start": 16, "end": 33}]}
+{"id": "zh_phone-country-chat_sf-141", "subset": "surface_matrix", "text": "同事在群里说：+86-135-1234-5678，记得回一下。", "expect": [{"type": "zh_phone", "value": "+86-135-1234-5678", "start": 21, "end": 38}]}
+{"id": "zh_phone-country-colon_tight_sf-142", "subset": "surface_matrix", "text": "联系方式:+86-135-1234-5678", "expect": [{"type": "zh_phone", "value": "+86-135-1234-5678", "start": 13, "end": 30}]}
+{"id": "zh_phone-country-paren_sf-143", "subset": "surface_matrix", "text": "（+86-135-1234-5678）", "expect": [{"type": "zh_phone", "value": "+86-135-1234-5678", "start": 3, "end": 20}]}
+{"id": "zh_phone-country-quote_sf-144", "subset": "surface_matrix", "text": "他说“+86-135-1234-5678”就挂了。", "expect": [{"type": "zh_phone", "value": "+86-135-1234-5678", "start": 9, "end": 26}]}
+{"id": "zh_phone-country-log_sf-145", "subset": "surface_matrix", "text": "[INFO] upstream contact=+86-135-1234-5678 status=queued", "expect": [{"type": "zh_phone", "value": "+86-135-1234-5678", "start": 24, "end": 41}]}
+{"id": "zh_phone-country-ticket_sf-146", "subset": "surface_matrix", "text": "【工单】回访方式：+86-135-1234-5678；优先级：普通", "expect": [{"type": "zh_phone", "value": "+86-135-1234-5678", "start": 27, "end": 44}]}
+{"id": "zh_phone-country-signature_sf-147", "subset": "surface_matrix", "text": "—— 如有疑问请联系 +86-135-1234-5678", "expect": [{"type": "zh_phone", "value": "+86-135-1234-5678", "start": 29, "end": 46}]}
+{"id": "zh_phone-country-trailing_sf-148", "subset": "surface_matrix", "text": "需要确认的信息是 +86-135-1234-5678", "expect": [{"type": "zh_phone", "value": "+86-135-1234-5678", "start": 25, "end": 42}]}
+{"id": "zh_phone-country-fw_colon_sf-149", "subset": "surface_matrix", "text": "联系方式：+86-135-1234-5678，谢谢", "expect": [{"type": "zh_phone", "value": "+86-135-1234-5678", "start": 15, "end": 32}]}
+{"id": "zh_phone-country-newline_sf-150", "subset": "surface_matrix", "text": "第一行说明\n+86-135-1234-5678\n第三行备注", "expect": [{"type": "zh_phone", "value": "+86-135-1234-5678", "start": 16, "end": 33}]}
+{"id": "zh_phone-fullwidth-chat_sf-151", "subset": "surface_matrix", "text": "同事在群里说：１３８００１３８０００，记得回一下。", "expect": [{"type": "zh_phone", "value": "１３８００１３８０００", "start": 21, "end": 54}]}
+{"id": "zh_phone-fullwidth-colon_tight_sf-152", "subset": "surface_matrix", "text": "联系方式:１３８００１３８０００", "expect": [{"type": "zh_phone", "value": "１３８００１３８０００", "start": 13, "end": 46}]}
+{"id": "zh_phone-fullwidth-paren_sf-153", "subset": "surface_matrix", "text": "（１３８００１３８０００）", "expect": [{"type": "zh_phone", "value": "１３８００１３８０００", "start": 3, "end": 36}]}
+{"id": "zh_phone-fullwidth-quote_sf-154", "subset": "surface_matrix", "text": "他说“１３８００１３８０００”就挂了。", "expect": [{"type": "zh_phone", "value": "１３８００１３８０００", "start": 9, "end": 42}]}
+{"id": "zh_phone-fullwidth-log_sf-155", "subset": "surface_matrix", "text": "[INFO] upstream contact=１３８００１３８０００ status=queued", "expect": [{"type": "zh_phone", "value": "１３８００１３８０００", "start": 24, "end": 57}]}
+{"id": "zh_phone-fullwidth-ticket_sf-156", "subset": "surface_matrix", "text": "【工单】回访方式：１３８００１３８０００；优先级：普通", "expect": [{"type": "zh_phone", "value": "１３８００１３８０００", "start": 27, "end": 60}]}
+{"id": "zh_phone-fullwidth-signature_sf-157", "subset": "surface_matrix", "text": "—— 如有疑问请联系 １３８００１３８０００", "expect": [{"type": "zh_phone", "value": "１３８００１３８０００", "start": 29, "end": 62}]}
+{"id": "zh_phone-fullwidth-trailing_sf-158", "subset": "surface_matrix", "text": "需要确认的信息是 １３８００１３８０００", "expect": [{"type": "zh_phone", "value": "１３８００１３８０００", "start": 25, "end": 58}]}
+{"id": "zh_phone-fullwidth-fw_colon_sf-159", "subset": "surface_matrix", "text": "联系方式：１３８００１３８０００，谢谢", "expect": [{"type": "zh_phone", "value": "１３８００１３８０００", "start": 15, "end": 48}]}
+{"id": "zh_phone-fullwidth-newline_sf-160", "subset": "surface_matrix", "text": "第一行说明\n１３８００１３８０００\n第三行备注", "expect": [{"type": "zh_phone", "value": "１３８００１３８０００", "start": 16, "end": 49}]}
+{"id": "zh_phone-fullwidth-chat_sf-161", "subset": "surface_matrix", "text": "同事在群里说：１３９１２３４５６７８，记得回一下。", "expect": [{"type": "zh_phone", "value": "１３９１２３４５６７８", "start": 21, "end": 54}]}
+{"id": "zh_phone-fullwidth-colon_tight_sf-162", "subset": "surface_matrix", "text": "联系方式:１３９１２３４５６７８", "expect": [{"type": "zh_phone", "value": "１３９１２３４５６７８", "start": 13, "end": 46}]}
+{"id": "zh_phone-fullwidth-paren_sf-163", "subset": "surface_matrix", "text": "（１３９１２３４５６７８）", "expect": [{"type": "zh_phone", "value": "１３９１２３４５６７８", "start": 3, "end": 36}]}
+{"id": "zh_phone-fullwidth-quote_sf-164", "subset": "surface_matrix", "text": "他说“１３９１２３４５６７８”就挂了。", "expect": [{"type": "zh_phone", "value": "１３９１２３４５６７８", "start": 9, "end": 42}]}
+{"id": "zh_phone-fullwidth-log_sf-165", "subset": "surface_matrix", "text": "[INFO] upstream contact=１３９１２３４５６７８ status=queued", "expect": [{"type": "zh_phone", "value": "１３９１２３４５６７８", "start": 24, "end": 57}]}
+{"id": "zh_phone-fullwidth-ticket_sf-166", "subset": "surface_matrix", "text": "【工单】回访方式：１３９１２３４５６７８；优先级：普通", "expect": [{"type": "zh_phone", "value": "１３９１２３４５６７８", "start": 27, "end": 60}]}
+{"id": "zh_phone-fullwidth-signature_sf-167", "subset": "surface_matrix", "text": "—— 如有疑问请联系 １３９１２３４５６７８", "expect": [{"type": "zh_phone", "value": "１３９１２３４５６７８", "start": 29, "end": 62}]}
+{"id": "zh_phone-fullwidth-trailing_sf-168", "subset": "surface_matrix", "text": "需要确认的信息是 １３９１２３４５６７８", "expect": [{"type": "zh_phone", "value": "１３９１２３４５６７８", "start": 25, "end": 58}]}
+{"id": "zh_phone-fullwidth-fw_colon_sf-169", "subset": "surface_matrix", "text": "联系方式：１３９１２３４５６７８，谢谢", "expect": [{"type": "zh_phone", "value": "１３９１２３４５６７８", "start": 15, "end": 48}]}
+{"id": "zh_phone-fullwidth-newline_sf-170", "subset": "surface_matrix", "text": "第一行说明\n１３９１２３４５６７８\n第三行备注", "expect": [{"type": "zh_phone", "value": "１３９１２３４５６７８", "start": 16, "end": 49}]}
+{"id": "zh_phone-fullwidth-chat_sf-171", "subset": "surface_matrix", "text": "同事在群里说：１３５１２３４５６７８，记得回一下。", "expect": [{"type": "zh_phone", "value": "１３５１２３４５６７８", "start": 21, "end": 54}]}
+{"id": "zh_phone-fullwidth-colon_tight_sf-172", "subset": "surface_matrix", "text": "联系方式:１３５１２３４５６７８", "expect": [{"type": "zh_phone", "value": "１３５１２３４５６７８", "start": 13, "end": 46}]}
+{"id": "zh_phone-fullwidth-paren_sf-173", "subset": "surface_matrix", "text": "（１３５１２３４５６７８）", "expect": [{"type": "zh_phone", "value": "１３５１２３４５６７８", "start": 3, "end": 36}]}
+{"id": "zh_phone-fullwidth-quote_sf-174", "subset": "surface_matrix", "text": "他说“１３５１２３４５６７８”就挂了。", "expect": [{"type": "zh_phone", "value": "１３５１２３４５６７８", "start": 9, "end": 42}]}
+{"id": "zh_phone-fullwidth-log_sf-175", "subset": "surface_matrix", "text": "[INFO] upstream contact=１３５１２３４５６７８ status=queued", "expect": [{"type": "zh_phone", "value": "１３５１２３４５６７８", "start": 24, "end": 57}]}
+{"id": "zh_phone-fullwidth-ticket_sf-176", "subset": "surface_matrix", "text": "【工单】回访方式：１３５１２３４５６７８；优先级：普通", "expect": [{"type": "zh_phone", "value": "１３５１２３４５６７８", "start": 27, "end": 60}]}
+{"id": "zh_phone-fullwidth-signature_sf-177", "subset": "surface_matrix", "text": "—— 如有疑问请联系 １３５１２３４５６７８", "expect": [{"type": "zh_phone", "value": "１３５１２３４５６７８", "start": 29, "end": 62}]}
+{"id": "zh_phone-fullwidth-trailing_sf-178", "subset": "surface_matrix", "text": "需要确认的信息是 １３５１２３４５６７８", "expect": [{"type": "zh_phone", "value": "１３５１２３４５６７８", "start": 25, "end": 58}]}
+{"id": "zh_phone-fullwidth-fw_colon_sf-179", "subset": "surface_matrix", "text": "联系方式：１３５１２３４５６７８，谢谢", "expect": [{"type": "zh_phone", "value": "１３５１２３４５６７８", "start": 15, "end": 48}]}
+{"id": "zh_phone-fullwidth-newline_sf-180", "subset": "surface_matrix", "text": "第一行说明\n１３５１２３４５６７８\n第三行备注", "expect": [{"type": "zh_phone", "value": "１３５１２３４５６７８", "start": 16, "end": 49}]}
+{"id": "email-plain-chat_sf-181", "subset": "surface_matrix", "text": "同事在群里说：zhang.san@example.com，记得回一下。", "expect": [{"type": "email", "value": "zhang.san@example.com", "start": 21, "end": 42}]}
+{"id": "email-plain-colon_tight_sf-182", "subset": "surface_matrix", "text": "联系方式:zhang.san@example.com", "expect": [{"type": "email", "value": "zhang.san@example.com", "start": 13, "end": 34}]}
+{"id": "email-plain-paren_sf-183", "subset": "surface_matrix", "text": "（zhang.san@example.com）", "expect": [{"type": "email", "value": "zhang.san@example.com", "start": 3, "end": 24}]}
+{"id": "email-plain-quote_sf-184", "subset": "surface_matrix", "text": "他说“zhang.san@example.com”就挂了。", "expect": [{"type": "email", "value": "zhang.san@example.com", "start": 9, "end": 30}]}
+{"id": "email-plain-log_sf-185", "subset": "surface_matrix", "text": "[INFO] upstream contact=zhang.san@example.com status=queued", "expect": [{"type": "email", "value": "zhang.san@example.com", "start": 24, "end": 45}]}
+{"id": "email-plain-ticket_sf-186", "subset": "surface_matrix", "text": "【工单】回访方式：zhang.san@example.com；优先级：普通", "expect": [{"type": "email", "value": "zhang.san@example.com", "start": 27, "end": 48}]}
+{"id": "email-plain-signature_sf-187", "subset": "surface_matrix", "text": "—— 如有疑问请联系 zhang.san@example.com", "expect": [{"type": "email", "value": "zhang.san@example.com", "start": 29, "end": 50}]}
+{"id": "email-plain-trailing_sf-188", "subset": "surface_matrix", "text": "需要确认的信息是 zhang.san@example.com", "expect": [{"type": "email", "value": "zhang.san@example.com", "start": 25, "end": 46}]}
+{"id": "email-plain-fw_colon_sf-189", "subset": "surface_matrix", "text": "联系方式：zhang.san@example.com，谢谢", "expect": [{"type": "email", "value": "zhang.san@example.com", "start": 15, "end": 36}]}
+{"id": "email-plain-newline_sf-190", "subset": "surface_matrix", "text": "第一行说明\nzhang.san@example.com\n第三行备注", "expect": [{"type": "email", "value": "zhang.san@example.com", "start": 16, "end": 37}]}
+{"id": "email-upper-chat_sf-191", "subset": "surface_matrix", "text": "同事在群里说：ZHANG.SAN@EXAMPLE.COM，记得回一下。", "expect": [{"type": "email", "value": "ZHANG.SAN@EXAMPLE.COM", "start": 21, "end": 42}]}
+{"id": "email-upper-colon_tight_sf-192", "subset": "surface_matrix", "text": "联系方式:ZHANG.SAN@EXAMPLE.COM", "expect": [{"type": "email", "value": "ZHANG.SAN@EXAMPLE.COM", "start": 13, "end": 34}]}
+{"id": "email-upper-paren_sf-193", "subset": "surface_matrix", "text": "（ZHANG.SAN@EXAMPLE.COM）", "expect": [{"type": "email", "value": "ZHANG.SAN@EXAMPLE.COM", "start": 3, "end": 24}]}
+{"id": "email-upper-quote_sf-194", "subset": "surface_matrix", "text": "他说“ZHANG.SAN@EXAMPLE.COM”就挂了。", "expect": [{"type": "email", "value": "ZHANG.SAN@EXAMPLE.COM", "start": 9, "end": 30}]}
+{"id": "email-upper-log_sf-195", "subset": "surface_matrix", "text": "[INFO] upstream contact=ZHANG.SAN@EXAMPLE.COM status=queued", "expect": [{"type": "email", "value": "ZHANG.SAN@EXAMPLE.COM", "start": 24, "end": 45}]}
+{"id": "email-upper-ticket_sf-196", "subset": "surface_matrix", "text": "【工单】回访方式：ZHANG.SAN@EXAMPLE.COM；优先级：普通", "expect": [{"type": "email", "value": "ZHANG.SAN@EXAMPLE.COM", "start": 27, "end": 48}]}
+{"id": "email-upper-signature_sf-197", "subset": "surface_matrix", "text": "—— 如有疑问请联系 ZHANG.SAN@EXAMPLE.COM", "expect": [{"type": "email", "value": "ZHANG.SAN@EXAMPLE.COM", "start": 29, "end": 50}]}
+{"id": "email-upper-trailing_sf-198", "subset": "surface_matrix", "text": "需要确认的信息是 ZHANG.SAN@EXAMPLE.COM", "expect": [{"type": "email", "value": "ZHANG.SAN@EXAMPLE.COM", "start": 25, "end": 46}]}
+{"id": "email-upper-fw_colon_sf-199", "subset": "surface_matrix", "text": "联系方式：ZHANG.SAN@EXAMPLE.COM，谢谢", "expect": [{"type": "email", "value": "ZHANG.SAN@EXAMPLE.COM", "start": 15, "end": 36}]}
+{"id": "email-upper-newline_sf-200", "subset": "surface_matrix", "text": "第一行说明\nZHANG.SAN@EXAMPLE.COM\n第三行备注", "expect": [{"type": "email", "value": "ZHANG.SAN@EXAMPLE.COM", "start": 16, "end": 37}]}
+{"id": "zh_id_card-bare-chat_sf-201", "subset": "surface_matrix", "text": "同事在群里说：110101199003078531，记得回一下。", "expect": [{"type": "zh_id_card", "value": "110101199003078531", "start": 21, "end": 39}]}
+{"id": "zh_id_card-bare-colon_tight_sf-202", "subset": "surface_matrix", "text": "联系方式:110101199003078531", "expect": [{"type": "zh_id_card", "value": "110101199003078531", "start": 13, "end": 31}]}
+{"id": "zh_id_card-bare-paren_sf-203", "subset": "surface_matrix", "text": "（110101199003078531）", "expect": [{"type": "zh_id_card", "value": "110101199003078531", "start": 3, "end": 21}]}
+{"id": "zh_id_card-bare-quote_sf-204", "subset": "surface_matrix", "text": "他说“110101199003078531”就挂了。", "expect": [{"type": "zh_id_card", "value": "110101199003078531", "start": 9, "end": 27}]}
+{"id": "zh_id_card-bare-log_sf-205", "subset": "surface_matrix", "text": "[INFO] upstream contact=110101199003078531 status=queued", "expect": [{"type": "zh_id_card", "value": "110101199003078531", "start": 24, "end": 42}]}
+{"id": "zh_id_card-bare-ticket_sf-206", "subset": "surface_matrix", "text": "【工单】回访方式：110101199003078531；优先级：普通", "expect": [{"type": "zh_id_card", "value": "110101199003078531", "start": 27, "end": 45}]}
+{"id": "zh_id_card-bare-signature_sf-207", "subset": "surface_matrix", "text": "—— 如有疑问请联系 110101199003078531", "expect": [{"type": "zh_id_card", "value": "110101199003078531", "start": 29, "end": 47}]}
+{"id": "zh_id_card-bare-trailing_sf-208", "subset": "surface_matrix", "text": "需要确认的信息是 110101199003078531", "expect": [{"type": "zh_id_card", "value": "110101199003078531", "start": 25, "end": 43}]}
+{"id": "zh_id_card-bare-fw_colon_sf-209", "subset": "surface_matrix", "text": "联系方式：110101199003078531，谢谢", "expect": [{"type": "zh_id_card", "value": "110101199003078531", "start": 15, "end": 33}]}
+{"id": "zh_id_card-bare-newline_sf-210", "subset": "surface_matrix", "text": "第一行说明\n110101199003078531\n第三行备注", "expect": [{"type": "zh_id_card", "value": "110101199003078531", "start": 16, "end": 34}]}
+{"id": "zh_id_card-grouped-chat_sf-211", "subset": "surface_matrix", "text": "同事在群里说：110101 1990 0307 8531，记得回一下。", "expect": [{"type": "zh_id_card", "value": "110101 1990 0307 8531", "start": 21, "end": 42}]}
+{"id": "zh_id_card-grouped-colon_tight_sf-212", "subset": "surface_matrix", "text": "联系方式:110101 1990 0307 8531", "expect": [{"type": "zh_id_card", "value": "110101 1990 0307 8531", "start": 13, "end": 34}]}
+{"id": "zh_id_card-grouped-paren_sf-213", "subset": "surface_matrix", "text": "（110101 1990 0307 8531）", "expect": [{"type": "zh_id_card", "value": "110101 1990 0307 8531", "start": 3, "end": 24}]}
+{"id": "zh_id_card-grouped-quote_sf-214", "subset": "surface_matrix", "text": "他说“110101 1990 0307 8531”就挂了。", "expect": [{"type": "zh_id_card", "value": "110101 1990 0307 8531", "start": 9, "end": 30}]}
+{"id": "zh_id_card-grouped-log_sf-215", "subset": "surface_matrix", "text": "[INFO] upstream contact=110101 1990 0307 8531 status=queued", "expect": [{"type": "zh_id_card", "value": "110101 1990 0307 8531", "start": 24, "end": 45}]}
+{"id": "zh_id_card-grouped-ticket_sf-216", "subset": "surface_matrix", "text": "【工单】回访方式：110101 1990 0307 8531；优先级：普通", "expect": [{"type": "zh_id_card", "value": "110101 1990 0307 8531", "start": 27, "end": 48}]}
+{"id": "zh_id_card-grouped-signature_sf-217", "subset": "surface_matrix", "text": "—— 如有疑问请联系 110101 1990 0307 8531", "expect": [{"type": "zh_id_card", "value": "110101 1990 0307 8531", "start": 29, "end": 50}]}
+{"id": "zh_id_card-grouped-trailing_sf-218", "subset": "surface_matrix", "text": "需要确认的信息是 110101 1990 0307 8531", "expect": [{"type": "zh_id_card", "value": "110101 1990 0307 8531", "start": 25, "end": 46}]}
+{"id": "zh_id_card-grouped-fw_colon_sf-219", "subset": "surface_matrix", "text": "联系方式：110101 1990 0307 8531，谢谢", "expect": [{"type": "zh_id_card", "value": "110101 1990 0307 8531", "start": 15, "end": 36}]}
+{"id": "zh_id_card-grouped-newline_sf-220", "subset": "surface_matrix", "text": "第一行说明\n110101 1990 0307 8531\n第三行备注", "expect": [{"type": "zh_id_card", "value": "110101 1990 0307 8531", "start": 16, "end": 37}]}
+{"id": "zh_id_card-lower_x-chat_sf-221", "subset": "surface_matrix", "text": "同事在群里说：11010119900307002x，记得回一下。", "expect": [{"type": "zh_id_card", "value": "11010119900307002x", "start": 21, "end": 39}]}
+{"id": "zh_id_card-lower_x-colon_tight_sf-222", "subset": "surface_matrix", "text": "联系方式:11010119900307002x", "expect": [{"type": "zh_id_card", "value": "11010119900307002x", "start": 13, "end": 31}]}
+{"id": "zh_id_card-lower_x-paren_sf-223", "subset": "surface_matrix", "text": "（11010119900307002x）", "expect": [{"type": "zh_id_card", "value": "11010119900307002x", "start": 3, "end": 21}]}
+{"id": "zh_id_card-lower_x-quote_sf-224", "subset": "surface_matrix", "text": "他说“11010119900307002x”就挂了。", "expect": [{"type": "zh_id_card", "value": "11010119900307002x", "start": 9, "end": 27}]}
+{"id": "zh_id_card-lower_x-log_sf-225", "subset": "surface_matrix", "text": "[INFO] upstream contact=11010119900307002x status=queued", "expect": [{"type": "zh_id_card", "value": "11010119900307002x", "start": 24, "end": 42}]}
+{"id": "zh_id_card-lower_x-ticket_sf-226", "subset": "surface_matrix", "text": "【工单】回访方式：11010119900307002x；优先级：普通", "expect": [{"type": "zh_id_card", "value": "11010119900307002x", "start": 27, "end": 45}]}
+{"id": "zh_id_card-lower_x-signature_sf-227", "subset": "surface_matrix", "text": "—— 如有疑问请联系 11010119900307002x", "expect": [{"type": "zh_id_card", "value": "11010119900307002x", "start": 29, "end": 47}]}
+{"id": "zh_id_card-lower_x-trailing_sf-228", "subset": "surface_matrix", "text": "需要确认的信息是 11010119900307002x", "expect": [{"type": "zh_id_card", "value": "11010119900307002x", "start": 25, "end": 43}]}
+{"id": "zh_id_card-lower_x-fw_colon_sf-229", "subset": "surface_matrix", "text": "联系方式：11010119900307002x，谢谢", "expect": [{"type": "zh_id_card", "value": "11010119900307002x", "start": 15, "end": 33}]}
+{"id": "zh_id_card-lower_x-newline_sf-230", "subset": "surface_matrix", "text": "第一行说明\n11010119900307002x\n第三行备注", "expect": [{"type": "zh_id_card", "value": "11010119900307002x", "start": 16, "end": 34}]}
+{"id": "zh_bank_card-bare-chat_sf-231", "subset": "surface_matrix", "text": "同事在群里说：6222021234567890128，记得回一下。", "expect": [{"type": "zh_bank_card", "value": "6222021234567890128", "start": 21, "end": 40}]}
+{"id": "zh_bank_card-bare-colon_tight_sf-232", "subset": "surface_matrix", "text": "联系方式:6222021234567890128", "expect": [{"type": "zh_bank_card", "value": "6222021234567890128", "start": 13, "end": 32}]}
+{"id": "zh_bank_card-bare-paren_sf-233", "subset": "surface_matrix", "text": "（6222021234567890128）", "expect": [{"type": "zh_bank_card", "value": "6222021234567890128", "start": 3, "end": 22}]}
+{"id": "zh_bank_card-bare-quote_sf-234", "subset": "surface_matrix", "text": "他说“6222021234567890128”就挂了。", "expect": [{"type": "zh_bank_card", "value": "6222021234567890128", "start": 9, "end": 28}]}
+{"id": "zh_bank_card-bare-log_sf-235", "subset": "surface_matrix", "text": "[INFO] upstream contact=6222021234567890128 status=queued", "expect": [{"type": "zh_bank_card", "value": "6222021234567890128", "start": 24, "end": 43}]}
+{"id": "zh_bank_card-bare-ticket_sf-236", "subset": "surface_matrix", "text": "【工单】回访方式：6222021234567890128；优先级：普通", "expect": [{"type": "zh_bank_card", "value": "6222021234567890128", "start": 27, "end": 46}]}
+{"id": "zh_bank_card-bare-signature_sf-237", "subset": "surface_matrix", "text": "—— 如有疑问请联系 6222021234567890128", "expect": [{"type": "zh_bank_card", "value": "6222021234567890128", "start": 29, "end": 48}]}
+{"id": "zh_bank_card-bare-trailing_sf-238", "subset": "surface_matrix", "text": "需要确认的信息是 6222021234567890128", "expect": [{"type": "zh_bank_card", "value": "6222021234567890128", "start": 25, "end": 44}]}
+{"id": "zh_bank_card-bare-fw_colon_sf-239", "subset": "surface_matrix", "text": "联系方式：6222021234567890128，谢谢", "expect": [{"type": "zh_bank_card", "value": "6222021234567890128", "start": 15, "end": 34}]}
+{"id": "zh_bank_card-bare-newline_sf-240", "subset": "surface_matrix", "text": "第一行说明\n6222021234567890128\n第三行备注", "expect": [{"type": "zh_bank_card", "value": "6222021234567890128", "start": 16, "end": 35}]}
+{"id": "zh_bank_card-grouped-chat_sf-241", "subset": "surface_matrix", "text": "同事在群里说：6222 0212 3456 7890 128，记得回一下。", "expect": [{"type": "zh_bank_card", "value": "6222 0212 3456 7890 128", "start": 21, "end": 44}]}
+{"id": "zh_bank_card-grouped-colon_tight_sf-242", "subset": "surface_matrix", "text": "联系方式:6222 0212 3456 7890 128", "expect": [{"type": "zh_bank_card", "value": "6222 0212 3456 7890 128", "start": 13, "end": 36}]}
+{"id": "zh_bank_card-grouped-paren_sf-243", "subset": "surface_matrix", "text": "（6222 0212 3456 7890 128）", "expect": [{"type": "zh_bank_card", "value": "6222 0212 3456 7890 128", "start": 3, "end": 26}]}
+{"id": "zh_bank_card-grouped-quote_sf-244", "subset": "surface_matrix", "text": "他说“6222 0212 3456 7890 128”就挂了。", "expect": [{"type": "zh_bank_card", "value": "6222 0212 3456 7890 128", "start": 9, "end": 32}]}
+{"id": "zh_bank_card-grouped-log_sf-245", "subset": "surface_matrix", "text": "[INFO] upstream contact=6222 0212 3456 7890 128 status=queued", "expect": [{"type": "zh_bank_card", "value": "6222 0212 3456 7890 128", "start": 24, "end": 47}]}
+{"id": "zh_bank_card-grouped-ticket_sf-246", "subset": "surface_matrix", "text": "【工单】回访方式：6222 0212 3456 7890 128；优先级：普通", "expect": [{"type": "zh_bank_card", "value": "6222 0212 3456 7890 128", "start": 27, "end": 50}]}
+{"id": "zh_bank_card-grouped-signature_sf-247", "subset": "surface_matrix", "text": "—— 如有疑问请联系 6222 0212 3456 7890 128", "expect": [{"type": "zh_bank_card", "value": "6222 0212 3456 7890 128", "start": 29, "end": 52}]}
+{"id": "zh_bank_card-grouped-trailing_sf-248", "subset": "surface_matrix", "text": "需要确认的信息是 6222 0212 3456 7890 128", "expect": [{"type": "zh_bank_card", "value": "6222 0212 3456 7890 128", "start": 25, "end": 48}]}
+{"id": "zh_bank_card-grouped-fw_colon_sf-249", "subset": "surface_matrix", "text": "联系方式：6222 0212 3456 7890 128，谢谢", "expect": [{"type": "zh_bank_card", "value": "6222 0212 3456 7890 128", "start": 15, "end": 38}]}
+{"id": "zh_bank_card-grouped-newline_sf-250", "subset": "surface_matrix", "text": "第一行说明\n6222 0212 3456 7890 128\n第三行备注", "expect": [{"type": "zh_bank_card", "value": "6222 0212 3456 7890 128", "start": 16, "end": 39}]}
+{"id": "ip_address-bare-chat_sf-251", "subset": "surface_matrix", "text": "同事在群里说：10.0.0.1，记得回一下。", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 21, "end": 29}]}
+{"id": "ip_address-bare-colon_tight_sf-252", "subset": "surface_matrix", "text": "联系方式:10.0.0.1", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 13, "end": 21}]}
+{"id": "ip_address-bare-paren_sf-253", "subset": "surface_matrix", "text": "（10.0.0.1）", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 3, "end": 11}]}
+{"id": "ip_address-bare-quote_sf-254", "subset": "surface_matrix", "text": "他说“10.0.0.1”就挂了。", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 9, "end": 17}]}
+{"id": "ip_address-bare-log_sf-255", "subset": "surface_matrix", "text": "[INFO] upstream contact=10.0.0.1 status=queued", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 24, "end": 32}]}
+{"id": "ip_address-bare-ticket_sf-256", "subset": "surface_matrix", "text": "【工单】回访方式：10.0.0.1；优先级：普通", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 27, "end": 35}]}
+{"id": "ip_address-bare-signature_sf-257", "subset": "surface_matrix", "text": "—— 如有疑问请联系 10.0.0.1", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 29, "end": 37}]}
+{"id": "ip_address-bare-trailing_sf-258", "subset": "surface_matrix", "text": "需要确认的信息是 10.0.0.1", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 25, "end": 33}]}
+{"id": "ip_address-bare-fw_colon_sf-259", "subset": "surface_matrix", "text": "联系方式：10.0.0.1，谢谢", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 15, "end": 23}]}
+{"id": "ip_address-bare-newline_sf-260", "subset": "surface_matrix", "text": "第一行说明\n10.0.0.1\n第三行备注", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 16, "end": 24}]}
+{"id": "ip_address-bare-chat_sf-261", "subset": "surface_matrix", "text": "同事在群里说：192.168.1.100，记得回一下。", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 21, "end": 34}]}
+{"id": "ip_address-bare-colon_tight_sf-262", "subset": "surface_matrix", "text": "联系方式:192.168.1.100", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 13, "end": 26}]}
+{"id": "ip_address-bare-paren_sf-263", "subset": "surface_matrix", "text": "（192.168.1.100）", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 3, "end": 16}]}
+{"id": "ip_address-bare-quote_sf-264", "subset": "surface_matrix", "text": "他说“192.168.1.100”就挂了。", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 9, "end": 22}]}
+{"id": "ip_address-bare-log_sf-265", "subset": "surface_matrix", "text": "[INFO] upstream contact=192.168.1.100 status=queued", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 24, "end": 37}]}
+{"id": "ip_address-bare-ticket_sf-266", "subset": "surface_matrix", "text": "【工单】回访方式：192.168.1.100；优先级：普通", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 27, "end": 40}]}
+{"id": "ip_address-bare-signature_sf-267", "subset": "surface_matrix", "text": "—— 如有疑问请联系 192.168.1.100", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 29, "end": 42}]}
+{"id": "ip_address-bare-trailing_sf-268", "subset": "surface_matrix", "text": "需要确认的信息是 192.168.1.100", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 25, "end": 38}]}
+{"id": "ip_address-bare-fw_colon_sf-269", "subset": "surface_matrix", "text": "联系方式：192.168.1.100，谢谢", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 15, "end": 28}]}
+{"id": "ip_address-bare-newline_sf-270", "subset": "surface_matrix", "text": "第一行说明\n192.168.1.100\n第三行备注", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 16, "end": 29}]}
+{"id": "ip_address-with_port-chat_sf-271", "subset": "surface_matrix", "text": "同事在群里说：10.0.0.1:8443，记得回一下。", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 21, "end": 29}]}
+{"id": "ip_address-with_port-colon_tight_sf-272", "subset": "surface_matrix", "text": "联系方式:10.0.0.1:8443", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 13, "end": 21}]}
+{"id": "ip_address-with_port-paren_sf-273", "subset": "surface_matrix", "text": "（10.0.0.1:8443）", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 3, "end": 11}]}
+{"id": "ip_address-with_port-quote_sf-274", "subset": "surface_matrix", "text": "他说“10.0.0.1:8443”就挂了。", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 9, "end": 17}]}
+{"id": "ip_address-with_port-log_sf-275", "subset": "surface_matrix", "text": "[INFO] upstream contact=10.0.0.1:8443 status=queued", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 24, "end": 32}]}
+{"id": "ip_address-with_port-ticket_sf-276", "subset": "surface_matrix", "text": "【工单】回访方式：10.0.0.1:8443；优先级：普通", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 27, "end": 35}]}
+{"id": "ip_address-with_port-signature_sf-277", "subset": "surface_matrix", "text": "—— 如有疑问请联系 10.0.0.1:8443", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 29, "end": 37}]}
+{"id": "ip_address-with_port-trailing_sf-278", "subset": "surface_matrix", "text": "需要确认的信息是 10.0.0.1:8443", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 25, "end": 33}]}
+{"id": "ip_address-with_port-fw_colon_sf-279", "subset": "surface_matrix", "text": "联系方式：10.0.0.1:8443，谢谢", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 15, "end": 23}]}
+{"id": "ip_address-with_port-newline_sf-280", "subset": "surface_matrix", "text": "第一行说明\n10.0.0.1:8443\n第三行备注", "expect": [{"type": "ip_address", "value": "10.0.0.1", "start": 16, "end": 24}]}
+{"id": "ip_address-with_port-chat_sf-281", "subset": "surface_matrix", "text": "同事在群里说：192.168.1.100:8443，记得回一下。", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 21, "end": 34}]}
+{"id": "ip_address-with_port-colon_tight_sf-282", "subset": "surface_matrix", "text": "联系方式:192.168.1.100:8443", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 13, "end": 26}]}
+{"id": "ip_address-with_port-paren_sf-283", "subset": "surface_matrix", "text": "（192.168.1.100:8443）", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 3, "end": 16}]}
+{"id": "ip_address-with_port-quote_sf-284", "subset": "surface_matrix", "text": "他说“192.168.1.100:8443”就挂了。", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 9, "end": 22}]}
+{"id": "ip_address-with_port-log_sf-285", "subset": "surface_matrix", "text": "[INFO] upstream contact=192.168.1.100:8443 status=queued", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 24, "end": 37}]}
+{"id": "ip_address-with_port-ticket_sf-286", "subset": "surface_matrix", "text": "【工单】回访方式：192.168.1.100:8443；优先级：普通", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 27, "end": 40}]}
+{"id": "ip_address-with_port-signature_sf-287", "subset": "surface_matrix", "text": "—— 如有疑问请联系 192.168.1.100:8443", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 29, "end": 42}]}
+{"id": "ip_address-with_port-trailing_sf-288", "subset": "surface_matrix", "text": "需要确认的信息是 192.168.1.100:8443", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 25, "end": 38}]}
+{"id": "ip_address-with_port-fw_colon_sf-289", "subset": "surface_matrix", "text": "联系方式：192.168.1.100:8443，谢谢", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 15, "end": 28}]}
+{"id": "ip_address-with_port-newline_sf-290", "subset": "surface_matrix", "text": "第一行说明\n192.168.1.100:8443\n第三行备注", "expect": [{"type": "ip_address", "value": "192.168.1.100", "start": 16, "end": 29}]}
