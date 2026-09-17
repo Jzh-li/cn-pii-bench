@@ -377,7 +377,7 @@ python3 analyze_corpus.py sanity --endpoint http://127.0.0.1:8413/v1/privacy/red
 - [ ] 0.5 接入 PII Engineer 模型做基准 → **已实测**（sidecar span F1 0.9091 / strict 0.8409；
       与 regex 融合后 span 0.9787 / strict 0.8842）。剩余阻塞项是**延迟**（p50 3.4s vs
       网关 500ms 硬超时），不是质量
-- [ ] 1.2 扩充真对抗语料 28 → 300+（当前每条实体权重 1/48，单条波动即可影响 2 个点）
+- [x] 1.2 扩充真对抗语料 28 → 300+（当前每条实体权重 1/48，单条波动即可影响 2 个点）
       → **已完成 28 → 318**（`--matrix` 表面形式 × 载体；既有 28 条逐字节不变）
 - [x] 1.4 语料值结构自洽硬门（约定 5：号段 / GB11643 校验位 / Luhn，`self_check()` ㋒）
 - [x] 1.5 形态缺口定位工具（`analyze_corpus.py forms|sanity`）
