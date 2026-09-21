@@ -1,0 +1,219 @@
+{
+  "endpoint": "http://127.0.0.1:8401/v1/privacy/redact",
+  "cases": "fixtures/cases_adversarial_ext.jsonl",
+  "n_cases": 318,
+  "corpus": {
+    "n_cases": 318,
+    "unique_texts": 318,
+    "duplicate_groups": 0,
+    "duplicate_ids": [],
+    "unique_shapes": 141
+  },
+  "match_mode": "both",
+  "primary_mode": "span",
+  "err_count": 0,
+  "total_tp": 316,
+  "total_fp": 0,
+  "total_fn": 22,
+  "precision": 1.0,
+  "recall": 0.9349,
+  "f1": 0.9664,
+  "by_match_mode": {
+    "strict": {
+      "tp": 314,
+      "fp": 2,
+      "fn": 24,
+      "precision": 0.9937,
+      "recall": 0.929,
+      "f1": 0.9602
+    },
+    "span": {
+      "tp": 316,
+      "fp": 0,
+      "fn": 22,
+      "precision": 1.0,
+      "recall": 0.9349,
+      "f1": 0.9664
+    }
+  },
+  "expect_miss_total": 1,
+  "expect_miss_open": 1,
+  "expect_miss_recovered": 0,
+  "excused_detections": 0,
+  "pessimistic_fn": 23,
+  "pessimistic_recall": 0.9322,
+  "pessimistic_f1": 0.9649,
+  "latency_p50_ms": 0,
+  "latency_p95_ms": 0,
+  "latency_p99_ms": 0,
+  "by_subset": {
+    "phone": {
+      "tp": 9,
+      "fp": 0,
+      "fn": 6,
+      "n_cases": 9
+    },
+    "person_name": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 4,
+      "n_cases": 4
+    },
+    "address": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 4,
+      "n_cases": 4
+    },
+    "email": {
+      "tp": 4,
+      "fp": 0,
+      "fn": 2,
+      "n_cases": 4
+    },
+    "ip_address": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "n_cases": 2
+    },
+    "mixed": {
+      "tp": 6,
+      "fp": 0,
+      "fn": 2,
+      "n_cases": 2
+    },
+    "tool_call": {
+      "tp": 4,
+      "fp": 0,
+      "fn": 4,
+      "n_cases": 2
+    },
+    "id_card_masked": {
+      "tp": 1,
+      "fp": 0,
+      "fn": 0,
+      "n_cases": 1
+    },
+    "surface_matrix": {
+      "tp": 290,
+      "fp": 0,
+      "fn": 0,
+      "n_cases": 290
+    }
+  },
+  "by_subset_all_modes": {
+    "strict": {
+      "phone": {
+        "tp": 9,
+        "fp": 0,
+        "fn": 6,
+        "n_cases": 9
+      },
+      "person_name": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 4,
+        "n_cases": 4
+      },
+      "address": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 4,
+        "n_cases": 4
+      },
+      "email": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 2,
+        "n_cases": 4
+      },
+      "ip_address": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "n_cases": 2
+      },
+      "mixed": {
+        "tp": 4,
+        "fp": 2,
+        "fn": 4,
+        "n_cases": 2
+      },
+      "tool_call": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 4,
+        "n_cases": 2
+      },
+      "id_card_masked": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "n_cases": 1
+      },
+      "surface_matrix": {
+        "tp": 290,
+        "fp": 0,
+        "fn": 0,
+        "n_cases": 290
+      }
+    },
+    "span": {
+      "phone": {
+        "tp": 9,
+        "fp": 0,
+        "fn": 6,
+        "n_cases": 9
+      },
+      "person_name": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 4,
+        "n_cases": 4
+      },
+      "address": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 4,
+        "n_cases": 4
+      },
+      "email": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 2,
+        "n_cases": 4
+      },
+      "ip_address": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "n_cases": 2
+      },
+      "mixed": {
+        "tp": 6,
+        "fp": 0,
+        "fn": 2,
+        "n_cases": 2
+      },
+      "tool_call": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 4,
+        "n_cases": 2
+      },
+      "id_card_masked": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "n_cases": 1
+      },
+      "surface_matrix": {
+        "tp": 290,
+        "fp": 0,
+        "fn": 0,
+        "n_cases": 290
+      }
+    }
+  }
+}
